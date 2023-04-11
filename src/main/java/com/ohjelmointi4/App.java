@@ -1,6 +1,9 @@
 package com.ohjelmointi4;
 
-import javax.swing.*;  
+import javax.swing.*;
+
+import java.awt.CardLayout;
+import java.awt.Container;
 import java.awt.Rectangle;
 
 
@@ -14,6 +17,14 @@ public class App
     {
 
          JFrame f=new JFrame("pasianssipeli :)");//creating instance of JFrame  
+
+        CardLayout crd = new CardLayout();
+
+        Container cPane = f.getContentPane();    
+        cPane.setLayout(crd);    
+
+        
+       
 
 
         ImageIcon icon = new ImageIcon("/nimetön.png");
@@ -36,7 +47,7 @@ public class App
         Rectangle r = new Rectangle(600, 100, 100, 100);
 
         JSlider e = new JSlider(JSlider.HORIZONTAL,0, 100, 10);
-        e.setBounds(r);
+        e.setBounds(600, 100, 100, 100);
 
         f.add(a);
         f.add(b);//adding button in JFrame  
@@ -44,9 +55,16 @@ public class App
         f.add(d);
         f.add(e);
                 
+
         f.setSize(800,600);//400 width and 500 height  
         f.setLayout(null);//using no layout managers  
         f.setVisible(true);//making the frame visible  
+
+        cPane.add("a", a); // first card is the button btn1  
+        cPane.add("b", b); // first card is the button btn2  
+        cPane.add("c", c);  // first card is the button btn3  
+
+
 
         System.out.println( "Hello World!" );
     }
