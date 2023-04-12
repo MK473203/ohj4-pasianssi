@@ -36,6 +36,7 @@ public class App extends JFrame implements ActionListener {
         Container mainMenuContainer = new Container();
         Container leaderboardContainer = new Container();
         Container settingsContainer = new Container();
+        Container gameContainer = new Container();
 
         ImageIcon icon = new ImageIcon("/nimetön.png");
 
@@ -54,20 +55,38 @@ public class App extends JFrame implements ActionListener {
         JButton d = new JButton("Poistu");
         d.setBounds(350, 400, 100, 40);
 
+        JButton e = new JButton("Takaisin");
+        e.setBounds(100 , 500, 100, 40);
+
+        JButton f = new JButton("Takaisin");
+        f.setBounds(100 , 500, 100, 40);
+
+        JButton g = new JButton("Takaisin");
+        g.setBounds(100 , 500, 100, 40);
+
         // adding listeners to it
         a.addActionListener(this);
         b.addActionListener(this);
         c.addActionListener(this);
+        d.addActionListener(this);
+        e.addActionListener(this);
+        f.addActionListener(this);
+        g.addActionListener(this);
 
         mainMenuContainer.add(a);
         mainMenuContainer.add(b);
         mainMenuContainer.add(c);
         mainMenuContainer.add(d);
 
+        leaderboardContainer.add(e);
+        settingsContainer.add(f);
+        gameContainer.add(g);
+        
+
         cPane.add("main menu", mainMenuContainer);
         cPane.add("leaderboards", leaderboardContainer);
         cPane.add("settings", settingsContainer);
-
+        cPane.add("uusi peli", gameContainer);
 
     }
 
@@ -76,7 +95,23 @@ public class App extends JFrame implements ActionListener {
         // after the last card, again, the first card of the container is shown upon clicking
 
         if (e.getActionCommand() == "Uusi peli") {
+            crd.show(cPane, "uusi peli");
+        }
+
+        if (e.getActionCommand() == "Pisteet") {
             crd.show(cPane, "leaderboards");
+        }
+
+        if (e.getActionCommand() == "Asetukset") {
+            crd.show(cPane, "settings");
+        }
+
+        if (e.getActionCommand() == "Poistu") {
+            System.exit(0);
+        }
+
+        if (e.getActionCommand() == "Takaisin") {
+            crd.show(cPane, "main menu");
         }
 
     }
