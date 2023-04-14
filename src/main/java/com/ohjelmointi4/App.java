@@ -19,16 +19,18 @@ public class App extends JFrame implements ActionListener {
     CardLayout crd;
 
     Container cPane;
-    
+
     Container mainMenuContainer = new Container();
     Container leaderboardContainer = new Container();
     Container settingsContainer = new Container();
     Container gameContainer = new Container();
 
-    ImageIcon icon = new ImageIcon("/nimetön.png");
+    ImageIcon icon = new ImageIcon(getClass().getResource("/nimetön.png"));
 
     // constructor of the class
     App() {
+
+        super("Pasianssi");
 
         setSize(800, 600);
 
@@ -66,11 +68,8 @@ public class App extends JFrame implements ActionListener {
         JButton g = new JButton("Takaisin");
         g.setBounds(100, 500, 100, 40);
 
-        
 
-        
-
-        // adding listeners to the buttons
+        // Adding listeners to the buttons
         a.addActionListener(this);
         b.addActionListener(this);
         c.addActionListener(this);

@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.imageio.*;
@@ -20,7 +19,9 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	BufferedImage cardImage;
 
-	Timer tickTimer = new Timer(16, this);
+	private static final int targetFPS = 120;
+
+	Timer tickTimer = new Timer((int) (1000 / targetFPS), this);
 
 	public int deckX = 0;
 
@@ -31,24 +32,31 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	public Color backgroundColor = new Color(0, 150, 0);
 
+	public Deck handDeck = Deck.getAllCardsDeck();
+
 	public GamePanel() {
 		super();
 
 		try {
-			cardImage = ImageIO.read(new File("kortit.png"));
+			cardImage = ImageIO.read(getClass().getResource("/kortit.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		gameImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
 		setBackground(backgroundColor);
+		setIgnoreRepaint(true);
 		tickTimer.start();
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		drawDeck(Deck.getAllCardsDeck(), deckX, 0);
+		Graphics2D graphics = gameImage.createGraphics();
+		graphics.setColor(backgroundColor);
+		graphics.fillRect(0, 0, gameImage.getWidth(), gameImage.getHeight());
+		drawDeck(graphics, handDeck);
+		graphics.dispose();
 		g.drawImage(gameImage, 0, 0, null);
 	}
 
@@ -59,33 +67,29 @@ public class GamePanel extends JPanel implements ActionListener {
 		gameImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 	}
 
-	private void drawCard(Card card, int x, int y) {
+	private void drawCard(Graphics2D graphics, Card card, int x, int y) {
 		BufferedImage cardSprite = cardImage.getSubimage(card.getRank() * cardWidth, card.getSuit() * cardHeight, cardWidth, cardHeight);
-		Graphics2D gameGraphics = gameImage.createGraphics();
-		gameGraphics.drawImage(cardSprite, null, x, y);
-		gameGraphics.dispose();
-
+		graphics.drawImage(cardSprite, null, x, y);
 	}
 
-	private void drawDeck(Deck deck, int x, int y) {
+	private void drawDeck(Graphics2D graphics, Deck deck) {
 
 		List<Card> cards = deck.getCards();
 
 		for (int i = 0; i < cards.size(); i++) {
 			Card card = cards.get(i);
-			drawCard(card, x + i * deck.cardOffsetX, y + i * deck.cardOffsetY);
+			drawCard(graphics, card, deck.deckX + i * deck.cardOffsetX, deck.deckY + i * deck.cardOffsetY);
 		}
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		deckX = 250 + (int)(250 * Math.sin(ticks / 10.0));
-
 		ticks++;
 		tickTimer.restart();
-		gameImage = new BufferedImage(getWidth(), getWidth(), BufferedImage.TYPE_INT_ARGB);
+
+		handDeck.deckX = 250 + (int) (250 * Math.sin(ticks / 10.0));
+
 		repaint();
 
 	}

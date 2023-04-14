@@ -11,13 +11,14 @@ public class Deck {
 	private List<Card> cards;
 
 	private int startingAmount = 0;
+	public int maxAmount = 52;
 
 	public int deckX = 0;
 	public int deckY = 0;
 	public int cardOffsetX = 0;
 	public int cardOffsetY = 20;
 
-	public Deck(int startingAmount) {
+	public Deck(int startingAmount, int maxAmount) {
 		cards = new ArrayList<Card>();
 		this.startingAmount = startingAmount;
 	}
@@ -39,7 +40,8 @@ public class Deck {
 
 	public static Deck getAllCardsDeck() {
 
-		// If this is the first time we're getting all cards, automatically fill the deck with one of every card.
+		// If this is the first time we're getting all cards, automatically fill the deck with one of every
+		// card.
 		if (allCardsDeck == null) {
 			Card[] cards = new Card[52];
 			for (int suit = 0; suit < 4; suit++) {
@@ -49,8 +51,8 @@ public class Deck {
 			}
 			allCardsDeck = new Deck(cards);
 		}
-		
+
 		return allCardsDeck;
 	}
-	
+
 }
