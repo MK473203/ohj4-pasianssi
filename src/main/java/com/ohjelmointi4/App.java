@@ -19,6 +19,13 @@ public class App extends JFrame implements ActionListener {
     CardLayout crd;
 
     Container cPane;
+    
+    Container mainMenuContainer = new Container();
+    Container leaderboardContainer = new Container();
+    Container settingsContainer = new Container();
+    Container gameContainer = new Container();
+
+    ImageIcon icon = new ImageIcon("/nimetön.png");
 
     // constructor of the class
     App() {
@@ -34,12 +41,6 @@ public class App extends JFrame implements ActionListener {
 
         cPane.setLayout(crd);
 
-        Container mainMenuContainer = new Container();
-        Container leaderboardContainer = new Container();
-        Container settingsContainer = new Container();
-        Container gameContainer = new Container();
-
-        ImageIcon icon = new ImageIcon("/nimetön.png");
 
         setIconImage(icon.getImage());
         setResizable(false);
@@ -65,8 +66,6 @@ public class App extends JFrame implements ActionListener {
         JButton g = new JButton("Takaisin");
         g.setBounds(100, 500, 100, 40);
 
-        GamePanel gamePanel = new GamePanel();
-        gamePanel.setBounds(0, 0, 1000, 1000);
         
 
         
@@ -88,7 +87,6 @@ public class App extends JFrame implements ActionListener {
         leaderboardContainer.add(e);
         settingsContainer.add(f);
         gameContainer.add(g);
-        gameContainer.add(gamePanel);
 
 
         cPane.add("main menu", mainMenuContainer);
@@ -103,6 +101,9 @@ public class App extends JFrame implements ActionListener {
         // after the last card, again, the first card of the container is shown upon clicking
 
         if (e.getActionCommand() == "Uusi peli") {
+            GamePanel gamePanel = new GamePanel();
+            gamePanel.setBounds(0, 0, 1000, 1000);
+            gameContainer.add(gamePanel);
             crd.show(cPane, "game");
         }
 

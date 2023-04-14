@@ -13,7 +13,8 @@ public class Card {
 	private int rank;
 
 	public Card(int suit, int rank) {
-
+		setSuit(suit);
+		setRank(rank);
 	}
 
 	public int getSuit() {
@@ -31,5 +32,5 @@ public class Card {
 	public void setRank(int rank) {
 		this.rank = Math.max(0, Math.min(12, rank));
 	}
-	
+
 }

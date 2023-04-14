@@ -12,8 +12,10 @@ public class Deck {
 
 	private int startingAmount = 0;
 
+	public int deckX = 0;
+	public int deckY = 0;
 	public int cardOffsetX = 0;
-	public int cardOffsetY = 15;
+	public int cardOffsetY = 20;
 
 	public Deck(int startingAmount) {
 		cards = new ArrayList<Card>();
