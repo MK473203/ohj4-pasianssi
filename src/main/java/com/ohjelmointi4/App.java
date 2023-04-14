@@ -24,6 +24,7 @@ public class App extends JFrame implements ActionListener {
     Container leaderboardContainer = new Container();
     Container settingsContainer = new Container();
     Container gameContainer = new Container();
+    GamePanel gamePanel;
 
     ImageIcon icon = new ImageIcon(getClass().getResource("/nimetön.png"));
 
@@ -68,6 +69,8 @@ public class App extends JFrame implements ActionListener {
         JButton g = new JButton("Takaisin");
         g.setBounds(100, 500, 100, 40);
 
+        gamePanel = new GamePanel();
+        gamePanel.setBounds(0, 0, getWidth() - 100, getHeight() - 100);
 
         // Adding listeners to the buttons
         a.addActionListener(this);
@@ -86,6 +89,7 @@ public class App extends JFrame implements ActionListener {
         leaderboardContainer.add(e);
         settingsContainer.add(f);
         gameContainer.add(g);
+        gameContainer.add(gamePanel);
 
 
         cPane.add("main menu", mainMenuContainer);
@@ -100,9 +104,7 @@ public class App extends JFrame implements ActionListener {
         // after the last card, again, the first card of the container is shown upon clicking
 
         if (e.getActionCommand() == "Uusi peli") {
-            GamePanel gamePanel = new GamePanel();
-            gamePanel.setBounds(0, 0, 1000, 1000);
-            gameContainer.add(gamePanel);
+            gamePanel.start();
             crd.show(cPane, "game");
         }
 
@@ -120,6 +122,7 @@ public class App extends JFrame implements ActionListener {
 
         if (e.getActionCommand() == "Takaisin") {
             crd.show(cPane, "main menu");
+            gamePanel.stop();
         }
 
     }

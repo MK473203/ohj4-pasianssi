@@ -1,31 +1,25 @@
 package com.ohjelmointi4;
 
 import java.util.List;
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Deck {
 
-	public static Deck allCardsDeck = null;
-
 	private List<Card> cards;
-
-	private int startingAmount = 0;
-	public int maxAmount = 52;
 
 	public int deckX = 0;
 	public int deckY = 0;
 	public int cardOffsetX = 0;
-	public int cardOffsetY = 20;
+	public int cardOffsetY = 0;
 
-	public Deck(int startingAmount, int maxAmount) {
+	public Deck() {
 		cards = new ArrayList<Card>();
-		this.startingAmount = startingAmount;
 	}
 
 	private Deck(Card[] cards) {
-		this.cards = Arrays.asList(cards);
-		startingAmount = this.cards.size();
+		this.cards = new ArrayList<Card>(Arrays.asList(cards));
 	}
 
 	public boolean canCombine(Deck deck2) {
@@ -38,21 +32,35 @@ public class Deck {
 		return cards;
 	}
 
-	public static Deck getAllCardsDeck() {
+	public void shuffle() {
+		for (int i = cards.size() - 1; i > 0; i--) {
+			int j = new Random().nextInt(i + 1);
+			Card temp = cards.get(i);
+			cards.set(i, cards.get(j));
+			cards.set(j, temp);
+		}
+	}
 
-		// If this is the first time we're getting all cards, automatically fill the deck with one of every
-		// card.
-		if (allCardsDeck == null) {
-			Card[] cards = new Card[52];
-			for (int suit = 0; suit < 4; suit++) {
-				for (int rank = 0; rank < 13; rank++) {
-					cards[suit * 13 + rank] = new Card(suit, rank);
-				}
+	public void dealTo(Deck deck2, int amount, boolean hideAllButOne) {
+		for (int i = 0; i < amount; i++) {
+			Card card = this.cards.remove(0);
+			if (hideAllButOne) {
+				card.hidden = i != amount - 1;
 			}
-			allCardsDeck = new Deck(cards);
+			deck2.getCards().add(card);
+		}
+	}
+
+	public static Deck getAllCardsDeck() {
+		
+		Card[] cards = new Card[52];
+		for (int suit = 0; suit < 4; suit++) {
+			for (int rank = 0; rank < 13; rank++) {
+				cards[suit * 13 + rank] = new Card(suit, rank);
+			}
 		}
 
-		return allCardsDeck;
+		return new Deck(cards);
 	}
 
 }
