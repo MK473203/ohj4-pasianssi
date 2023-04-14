@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 
 /**
@@ -56,15 +57,18 @@ public class App extends JFrame implements ActionListener {
         d.setBounds(350, 400, 100, 40);
 
         JButton e = new JButton("Takaisin");
-        e.setBounds(100 , 500, 100, 40);
+        e.setBounds(100, 500, 100, 40);
 
         JButton f = new JButton("Takaisin");
-        f.setBounds(100 , 500, 100, 40);
+        f.setBounds(100, 500, 100, 40);
 
         JButton g = new JButton("Takaisin");
-        g.setBounds(100 , 500, 100, 40);
+        g.setBounds(100, 500, 100, 40);
 
-        // adding listeners to it
+        GamePanel gamePanel = new GamePanel();
+        gamePanel.setBounds(0, 0, 100, 100);
+
+        // adding listeners to the buttons
         a.addActionListener(this);
         b.addActionListener(this);
         c.addActionListener(this);
@@ -81,12 +85,13 @@ public class App extends JFrame implements ActionListener {
         leaderboardContainer.add(e);
         settingsContainer.add(f);
         gameContainer.add(g);
-        
+        gameContainer.add(gamePanel);
+
 
         cPane.add("main menu", mainMenuContainer);
         cPane.add("leaderboards", leaderboardContainer);
         cPane.add("settings", settingsContainer);
-        cPane.add("uusi peli", gameContainer);
+        cPane.add("game", gameContainer);
 
     }
 
@@ -95,7 +100,7 @@ public class App extends JFrame implements ActionListener {
         // after the last card, again, the first card of the container is shown upon clicking
 
         if (e.getActionCommand() == "Uusi peli") {
-            crd.show(cPane, "uusi peli");
+            crd.show(cPane, "game");
         }
 
         if (e.getActionCommand() == "Pisteet") {
