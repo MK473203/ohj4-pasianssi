@@ -66,7 +66,10 @@ public class App extends JFrame implements ActionListener {
         g.setBounds(100, 500, 100, 40);
 
         GamePanel gamePanel = new GamePanel();
-        gamePanel.setBounds(0, 0, 100, 100);
+        gamePanel.setBounds(0, 0, 1000, 1000);
+        
+
+        
 
         // adding listeners to the buttons
         a.addActionListener(this);
