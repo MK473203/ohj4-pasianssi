@@ -7,6 +7,7 @@ import java.awt.Container;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 
 
@@ -52,47 +53,77 @@ public class App extends JFrame implements ActionListener {
         setIconImage(icon.getImage());
         setResizable(false);
 
-        JButton a = new JButton("Uusi peli");
-        a.setBounds((getWidth() / 2) - (getWidth() / 4), 100, (getWidth() / 2), 40);
+        //menu
+        JButton mainMenu1 = new JButton("Uusi peli");
+        mainMenu1.setBounds((getWidth() / 2) - (getWidth() / 4), 100, (getWidth() / 2), 40);
 
-        JButton b = new JButton("Pisteet");
-        b.setBounds(350, 200, 100, 40);
+        JButton mainMenu2 = new JButton("Pisteet");
+        mainMenu2.setBounds(350, 200, 100, 40);
 
-        JButton c = new JButton("Asetukset");
-        c.setBounds(350, 300, 100, 40);
+        JButton mainMenu3 = new JButton("Asetukset");
+        mainMenu3.setBounds(350, 300, 100, 40);
 
-        JButton d = new JButton("Poistu");
-        d.setBounds(350, 400, 100, 40);
+        JButton mainMenu4 = new JButton("Poistu");
+        mainMenu4.setBounds(350, 400, 100, 40);
 
-        JButton e = new JButton("Takaisin");
-        e.setBounds(100, 500, 100, 40);
+        //pisteet
+        JButton leaderboards1 = new JButton("Takaisin");
+        leaderboards1.setBounds(100, 500, 100, 40);
 
-        JButton f = new JButton("Takaisin");
-        f.setBounds(100, 500, 100, 40);
+        //asetukset
+        JButton settings1 = new JButton("Takaisin");
+        settings1.setBounds(100, 500, 100, 40);
 
-        JButton g = new JButton("Takaisin");
-        g.setBounds(100, 500, 100, 40);
+        String[] resolutions = {"800x600", "1200x800"};
+        final JComboBox settings2 = new JComboBox<String>(resolutions);
+        settings2.setBounds(500, 100, 100, 50);
+        
+        settings2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String s = settings2.getSelectedItem().toString();
+
+                switch (s) {
+
+                    case "800x600":
+                        setSize(800, 600);
+                    break;
+
+                    case "1200x800":
+                        setSize(1200,800);
+                    break;
+                }
+
+            }
+        });
+
+        //peli
+        JButton game1 = new JButton("Takaisin");
+        game1.setBounds(100, 500, 100, 40);
 
         gamePanel = new GamePanel();
         gamePanel.setBounds(0, 0, getWidth() - 100, getHeight() - 100);
 
         // Adding listeners to the buttons
-        a.addActionListener(this);
-        b.addActionListener(this);
-        c.addActionListener(this);
-        d.addActionListener(this);
-        e.addActionListener(this);
-        f.addActionListener(this);
-        g.addActionListener(this);
+        mainMenu1.addActionListener(this);
+        mainMenu2.addActionListener(this);
+        mainMenu3.addActionListener(this);
+        mainMenu4.addActionListener(this);
 
-        mainMenuContainer.add(a);
-        mainMenuContainer.add(b);
-        mainMenuContainer.add(c);
-        mainMenuContainer.add(d);
+        leaderboards1.addActionListener(this);
+        settings1.addActionListener(this);
+        game1.addActionListener(this);
 
-        leaderboardContainer.add(e);
-        settingsContainer.add(f);
-        gameContainer.add(g);
+        mainMenuContainer.add(mainMenu1);
+        mainMenuContainer.add(mainMenu2);
+        mainMenuContainer.add(mainMenu3);
+        mainMenuContainer.add(mainMenu4);
+
+        leaderboardContainer.add(leaderboards1);
+
+        settingsContainer.add(settings1);
+        settingsContainer.add(settings2);
+
+        gameContainer.add(game1);
         gameContainer.add(gamePanel);
 
 
@@ -133,6 +164,7 @@ public class App extends JFrame implements ActionListener {
             gamePanel.stop();
             buttonSound.playSound();
         }
+
 
     }
 
