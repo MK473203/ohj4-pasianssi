@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 
 
+
 /**
  * Hello world!
  *
@@ -25,6 +26,8 @@ public class App extends JFrame implements ActionListener {
     Container settingsContainer = new Container();
     Container gameContainer = new Container();
     GamePanel gamePanel;
+
+    Sound buttonSound;
 
     ImageIcon icon = new ImageIcon(getClass().getResource("/nimetön.png"));
 
@@ -44,6 +47,7 @@ public class App extends JFrame implements ActionListener {
 
         cPane.setLayout(crd);
 
+        buttonSound = new Sound("/timpani.wav");
 
         setIconImage(icon.getImage());
         setResizable(false);
@@ -106,14 +110,18 @@ public class App extends JFrame implements ActionListener {
         if (e.getActionCommand() == "Uusi peli") {
             gamePanel.start();
             crd.show(cPane, "game");
+            
+            buttonSound.playSound();
         }
 
         if (e.getActionCommand() == "Pisteet") {
             crd.show(cPane, "leaderboards");
+            buttonSound.playSound();
         }
 
         if (e.getActionCommand() == "Asetukset") {
             crd.show(cPane, "settings");
+            buttonSound.playSound();
         }
 
         if (e.getActionCommand() == "Poistu") {
@@ -123,9 +131,12 @@ public class App extends JFrame implements ActionListener {
         if (e.getActionCommand() == "Takaisin") {
             crd.show(cPane, "main menu");
             gamePanel.stop();
+            buttonSound.playSound();
         }
 
     }
+
+    
 
     // main method
     public static void main(String argvs[]) {
