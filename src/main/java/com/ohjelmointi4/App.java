@@ -65,7 +65,26 @@ public class App extends JFrame implements ActionListener {
         setIconImage(icon.getImage());
         setResizable(false);
 
-        updateButtons();
+        //menu
+        JButton mainMenu1 = new JButton("Uusi peli");
+        mainMenu1.setBounds((getWidth() / 2) - (getWidth() / 4), 100, (getWidth() / 2), 40);
+
+        JButton mainMenu2 = new JButton("Pisteet");
+        mainMenu2.setBounds(350, 200, 100, 40);
+
+        JButton mainMenu3 = new JButton("Asetukset");
+        mainMenu3.setBounds(350, 300, 100, 40);
+
+        JButton mainMenu4 = new JButton("Poistu");
+        mainMenu4.setBounds(350, 400, 100, 40);
+
+        //pisteet
+        JButton leaderboards1 = new JButton("Takaisin");
+        leaderboards1.setBounds(100, 500, 100, 40);
+
+        //asetukset
+        JButton settings1 = new JButton("Takaisin");
+        settings1.setBounds(100, 500, 100, 40);
 
 
         settings2.addActionListener(new ActionListener() {
@@ -182,7 +201,7 @@ public class App extends JFrame implements ActionListener {
     public void buttonMouseOvers() {
 
         //menu
-        mainMenu1.setToolTipText("Aloittaa uuden pelin");
+        mainMenu1.setToolTipText("Aloittaa uuden pelin. aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         mainMenu2.setToolTipText("Pelin läpäisseiden tilastot");
         mainMenu3.setToolTipText("Asetukset valikko");
         mainMenu4.setToolTipText("Lopettaa ohjelman");
