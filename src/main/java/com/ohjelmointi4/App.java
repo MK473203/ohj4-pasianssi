@@ -23,14 +23,24 @@ public class App extends JFrame implements ActionListener {
     Container cPane;
 
     Container mainMenuContainer = new Container();
+    JButton mainMenu1 = new JButton("Uusi peli");
+    JButton mainMenu2 = new JButton("Pisteet");
+    JButton mainMenu3 = new JButton("Asetukset");
+    JButton mainMenu4 = new JButton("Poistu");
+
     Container leaderboardContainer = new Container();
+    JButton leaderboards1 = new JButton("Takaisin");
+
     Container settingsContainer = new Container();
+    JButton settings1 = new JButton("Takaisin");
+    String[] resolutions = {"800x600", "1200x800"};
+    final JComboBox settings2 = new JComboBox<String>(resolutions);
+
     Container gameContainer = new Container();
+    JButton game1 = new JButton("Takaisin");
     GamePanel gamePanel;
 
     Sound buttonSound;
-    
-    JButton mainMenu1 = new JButton("Uusi peli");
 
     ImageIcon icon = new ImageIcon(getClass().getResource("/nimetön.png"));
 
@@ -56,6 +66,7 @@ public class App extends JFrame implements ActionListener {
         setResizable(false);
 
         //menu
+        JButton mainMenu1 = new JButton("Uusi peli");
         mainMenu1.setBounds((getWidth() / 2) - (getWidth() / 4), 100, (getWidth() / 2), 40);
 
         JButton mainMenu2 = new JButton("Pisteet");
@@ -75,31 +86,30 @@ public class App extends JFrame implements ActionListener {
         JButton settings1 = new JButton("Takaisin");
         settings1.setBounds(100, 500, 100, 40);
 
-        String[] resolutions = {"800x600", "1200x800"};
-        final JComboBox settings2 = new JComboBox<String>(resolutions);
-        settings2.setBounds(500, 100, 100, 50);
-        
+
         settings2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String s = settings2.getSelectedItem().toString();
 
                 switch (s) {
-
                     case "800x600":
                         setSize(800, 600);
+                        
                     break;
 
                     case "1200x800":
                         setSize(1200,800);
+                        
                     break;
                 }
-
+                updateButtons();
             }
         });
 
+        buttonMouseOvers();
         //peli
-        JButton game1 = new JButton("Takaisin");
-        game1.setBounds(100, 500, 100, 40);
+        
+        
 
         gamePanel = new GamePanel();
         gamePanel.setBounds(0, 0, getWidth() - 100, getHeight() - 100);
@@ -166,9 +176,47 @@ public class App extends JFrame implements ActionListener {
             buttonSound.playSound();
         }
 
+    }
+
+    public void updateButtons() {
+
+        //menu
+        mainMenu1.setBounds((getWidth() / 2) - (getWidth() / 4), 100, (getWidth() / 2), 40);
+        mainMenu2.setBounds((getWidth() / 2) - (getWidth() / 4), 200, (getWidth() / 2), 40);
+        mainMenu3.setBounds((getWidth() / 2) - (getWidth() / 4), 300, (getWidth() / 2), 40);
+        mainMenu4.setBounds((getWidth() / 2) - (getWidth() / 4), 400, (getWidth() / 2), 40);
+
+        //pisteet
+        leaderboards1.setBounds(100, 500, 100, 40);
+
+        //asetukset
+        settings1.setBounds(100, 500, 100, 40);
+        settings2.setBounds(500, 100, 100, 50);
+
+        //peli
+        game1.setBounds(100, 500, 100, 40);
 
     }
 
+    public void buttonMouseOvers() {
+
+        //menu
+        mainMenu1.setToolTipText("Aloittaa uuden pelin. aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        mainMenu2.setToolTipText("Pelin läpäisseiden tilastot");
+        mainMenu3.setToolTipText("Asetukset valikko");
+        mainMenu4.setToolTipText("Lopettaa ohjelman");
+
+        //pisteet
+        leaderboards1.setToolTipText("Takaisin päävalikkoon");
+
+        //asetukset
+        settings1.setToolTipText("Takaisin päävalikkoon");
+        settings2.setToolTipText("Valitse peli-ikkunan koko");
+
+        //peli
+        game1.setToolTipText("Takaisin päävalikkoon. Lopettaa pelin");
+
+    }
     
 
     // main method
