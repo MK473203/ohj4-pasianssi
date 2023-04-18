@@ -159,20 +159,20 @@ public class App extends JFrame implements ActionListener {
     public void updateButtons() {
 
         //menu
-        mainMenu1.setBounds((getWidth() / 2) - (getWidth() / 4), getHeight() - (getHeight() / 5), (getWidth() / 2), 40);
-        mainMenu2.setBounds((getWidth() / 2) - (getWidth() / 4), 200, (getWidth() / 2), 40);
-        mainMenu3.setBounds((getWidth() / 2) - (getWidth() / 4), 300, (getWidth() / 2), 40);
-        mainMenu4.setBounds((getWidth() / 2) - (getWidth() / 4), 400, (getWidth() / 2), 40);
+        mainMenu1.setBounds((getWidth() / 2) - (getWidth() / 4), getHeight() - (int) (getHeight() * 0.85 ), (getWidth() / 2), getHeight() / 15);
+        mainMenu2.setBounds((getWidth() / 2) - (getWidth() / 4), getHeight() - (int) (getHeight() * 0.65 ), (getWidth() / 2), getHeight() / 15);
+        mainMenu3.setBounds((getWidth() / 2) - (getWidth() / 4), getHeight() - (int) (getHeight() * 0.45 ), (getWidth() / 2), getHeight() / 15);
+        mainMenu4.setBounds((getWidth() / 2) - (getWidth() / 4), getHeight() - (int) (getHeight() * 0.25 ), (getWidth() / 2), getHeight() / 15);
 
         //pisteet
-        leaderboards1.setBounds(100, 500, 100, 40);
+        leaderboards1.setBounds((int) (getWidth() * 0.10), (int) (getHeight() * 0.85 ), (int) (getWidth() * 0.15), getHeight() / 15);
 
         //asetukset
-        settings1.setBounds(100, 500, 100, 40);
-        settings2.setBounds(500, 100, 100, 50);
+        settings1.setBounds( (int) (getWidth() * 0.10), (int) (getHeight() * 0.85 ), (int) (getWidth() * 0.15),  getHeight() / 15);
+        settings2.setBounds((int) (getWidth() * 0.625), (int) (getHeight() * 0.17 ), (int) (getWidth() * 0.15), (int) (getHeight() * 0.0625 ));
 
         //peli
-        game1.setBounds(100, 500, 100, 40);
+        game1.setBounds((int) (getWidth() * 0.10), (int) (getHeight() * 0.85 ), (int) (getWidth() * 0.15), getHeight() / 15);
 
     }
 
