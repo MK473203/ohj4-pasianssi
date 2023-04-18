@@ -29,6 +29,8 @@ public class App extends JFrame implements ActionListener {
     GamePanel gamePanel;
 
     Sound buttonSound;
+    
+    JButton mainMenu1 = new JButton("Uusi peli");
 
     ImageIcon icon = new ImageIcon(getClass().getResource("/nimetön.png"));
 
@@ -54,7 +56,6 @@ public class App extends JFrame implements ActionListener {
         setResizable(false);
 
         //menu
-        JButton mainMenu1 = new JButton("Uusi peli");
         mainMenu1.setBounds((getWidth() / 2) - (getWidth() / 4), 100, (getWidth() / 2), 40);
 
         JButton mainMenu2 = new JButton("Pisteet");

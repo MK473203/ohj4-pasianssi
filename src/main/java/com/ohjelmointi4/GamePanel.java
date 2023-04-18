@@ -5,6 +5,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -36,11 +38,13 @@ public class GamePanel extends JPanel implements ActionListener {
 	public Deck[] suitDecks = new Deck[4];
 	public Deck[] mainDecks = new Deck[7];
 
+	public Deck selectedDeck = null;
+
 	public GamePanel() {
 		super();
 
 		gameImage = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
-		// setBackground(backgroundColor);
+		setBackground(backgroundColor);
 		setIgnoreRepaint(true);
 
 		try {
@@ -49,6 +53,27 @@ public class GamePanel extends JPanel implements ActionListener {
 			e.printStackTrace();
 			System.exit(0);
 		}
+
+		addMouseListener(new MouseListener() {
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {}
+
+			@Override
+			public void mouseExited(MouseEvent e) {}
+		});
 
 	}
 
