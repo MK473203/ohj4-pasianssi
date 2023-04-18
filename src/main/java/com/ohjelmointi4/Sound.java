@@ -10,6 +10,8 @@ public class Sound {
     
     private String fileName;        // Clip tukee .wav .aiff .au muotoisia äänitiedostoja 
 
+    private int volume;
+
     public Sound(String fileName) {
         this.fileName = fileName;
     }
@@ -27,6 +29,10 @@ public class Sound {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setVolume(int volume) {
+        this.volume = volume;
     }
 
 }

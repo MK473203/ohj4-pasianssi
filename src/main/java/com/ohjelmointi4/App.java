@@ -35,6 +35,7 @@ public class App extends JFrame implements ActionListener {
     JButton settings1 = new JButton("Takaisin");
     String[] resolutions = {"800x600", "1200x800"};
     final JComboBox settings2 = new JComboBox<String>(resolutions);
+    JSlider settings3 = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
     //peli
     Container gameContainer = new Container();
     JButton game1 = new JButton("Takaisin");
@@ -65,8 +66,25 @@ public class App extends JFrame implements ActionListener {
         setIconImage(icon.getImage());
         setResizable(false);
 
-        updateButtons();
+        
 
+        
+
+        buttonMouseOvers();
+
+        //peli
+        gamePanel = new GamePanel();
+        
+
+        // Adding listeners to the buttons
+        mainMenu1.addActionListener(this);
+        mainMenu2.addActionListener(this);
+        mainMenu3.addActionListener(this);
+        mainMenu4.addActionListener(this);
+
+        leaderboards1.addActionListener(this);
+
+        settings1.addActionListener(this);
         settings2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String s = settings2.getSelectedItem().toString();
@@ -86,20 +104,8 @@ public class App extends JFrame implements ActionListener {
             }
         });
 
-        buttonMouseOvers();
+        updateButtons();
 
-        //peli
-        gamePanel = new GamePanel();
-        gamePanel.setBounds(0, 0, getWidth() - 100, getHeight() - 100);
-
-        // Adding listeners to the buttons
-        mainMenu1.addActionListener(this);
-        mainMenu2.addActionListener(this);
-        mainMenu3.addActionListener(this);
-        mainMenu4.addActionListener(this);
-
-        leaderboards1.addActionListener(this);
-        settings1.addActionListener(this);
         game1.addActionListener(this);
 
         mainMenuContainer.add(mainMenu1);
@@ -111,6 +117,7 @@ public class App extends JFrame implements ActionListener {
 
         settingsContainer.add(settings1);
         settingsContainer.add(settings2);
+        settingsContainer.add(settings3);
 
         gameContainer.add(game1);
         gameContainer.add(gamePanel);
@@ -170,10 +177,11 @@ public class App extends JFrame implements ActionListener {
         //asetukset
         settings1.setBounds( (int) (getWidth() * 0.10), (int) (getHeight() * 0.85 ), (int) (getWidth() * 0.15),  getHeight() / 15);
         settings2.setBounds((int) (getWidth() * 0.625), (int) (getHeight() * 0.17 ), (int) (getWidth() * 0.15), (int) (getHeight() * 0.0625 ));
+        settings3.setBounds((int) (getWidth() * 0.625), (int) (getHeight() * 0.35 ), (int) (getWidth() * 0.15), (int) (getHeight() * 0.0625 ));
 
         //peli
         game1.setBounds((int) (getWidth() * 0.10), (int) (getHeight() * 0.85 ), (int) (getWidth() * 0.15), getHeight() / 15);
-
+        gamePanel.setBounds(0, 0, getWidth() - 100, getHeight() - 100);
     }
 
     public void buttonMouseOvers() {
