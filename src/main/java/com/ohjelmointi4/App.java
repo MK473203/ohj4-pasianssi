@@ -21,21 +21,21 @@ public class App extends JFrame implements ActionListener {
     CardLayout crd;
 
     Container cPane;
-
+    //menu
     Container mainMenuContainer = new Container();
     JButton mainMenu1 = new JButton("Uusi peli");
     JButton mainMenu2 = new JButton("Pisteet");
     JButton mainMenu3 = new JButton("Asetukset");
     JButton mainMenu4 = new JButton("Poistu");
-
+    //pisteet
     Container leaderboardContainer = new Container();
     JButton leaderboards1 = new JButton("Takaisin");
-
+    //asetukset
     Container settingsContainer = new Container();
     JButton settings1 = new JButton("Takaisin");
     String[] resolutions = {"800x600", "1200x800"};
     final JComboBox settings2 = new JComboBox<String>(resolutions);
-
+    //peli
     Container gameContainer = new Container();
     JButton game1 = new JButton("Takaisin");
     GamePanel gamePanel;
@@ -65,27 +65,7 @@ public class App extends JFrame implements ActionListener {
         setIconImage(icon.getImage());
         setResizable(false);
 
-        //menu
-        JButton mainMenu1 = new JButton("Uusi peli");
-        mainMenu1.setBounds((getWidth() / 2) - (getWidth() / 4), 100, (getWidth() / 2), 40);
-
-        JButton mainMenu2 = new JButton("Pisteet");
-        mainMenu2.setBounds(350, 200, 100, 40);
-
-        JButton mainMenu3 = new JButton("Asetukset");
-        mainMenu3.setBounds(350, 300, 100, 40);
-
-        JButton mainMenu4 = new JButton("Poistu");
-        mainMenu4.setBounds(350, 400, 100, 40);
-
-        //pisteet
-        JButton leaderboards1 = new JButton("Takaisin");
-        leaderboards1.setBounds(100, 500, 100, 40);
-
-        //asetukset
-        JButton settings1 = new JButton("Takaisin");
-        settings1.setBounds(100, 500, 100, 40);
-
+        updateButtons();
 
         settings2.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -107,10 +87,8 @@ public class App extends JFrame implements ActionListener {
         });
 
         buttonMouseOvers();
-        //peli
-        
-        
 
+        //peli
         gamePanel = new GamePanel();
         gamePanel.setBounds(0, 0, getWidth() - 100, getHeight() - 100);
 
