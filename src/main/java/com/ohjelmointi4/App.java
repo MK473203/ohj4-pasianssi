@@ -162,7 +162,7 @@ public class App extends JFrame implements ActionListener {
     public void updateButtons() {
 
         //menu
-        mainMenu1.setBounds((getWidth() / 2) - (getWidth() / 4), 100, (getWidth() / 2), 40);
+        mainMenu1.setBounds((getWidth() / 2) - (getWidth() / 4), getHeight() - (getHeight() / 5), (getWidth() / 2), 40);
         mainMenu2.setBounds((getWidth() / 2) - (getWidth() / 4), 200, (getWidth() / 2), 40);
         mainMenu3.setBounds((getWidth() / 2) - (getWidth() / 4), 300, (getWidth() / 2), 40);
         mainMenu4.setBounds((getWidth() / 2) - (getWidth() / 4), 400, (getWidth() / 2), 40);
