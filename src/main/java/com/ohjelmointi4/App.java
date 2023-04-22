@@ -72,6 +72,9 @@ public class App extends JFrame implements ActionListener {
         }
 
     };
+
+    JButton defaultCardsButton = new JButton("Oletuskortit");
+
     // peli
     Container gameContainer = new Container();
     JButton gameBackButton = new JButton("Takaisin");
@@ -143,6 +146,7 @@ public class App extends JFrame implements ActionListener {
             }
         });
         cardFileChooser.setFileFilter(imageFileFilter);
+        defaultCardsButton.addActionListener(this);
 
         updateButtons();
 
@@ -159,6 +163,7 @@ public class App extends JFrame implements ActionListener {
         settingsContainer.add(resolutionComboBox);
         settingsContainer.add(volumeSlider);
         settingsContainer.add(chooseFileButton);
+        settingsContainer.add(defaultCardsButton);
 
         gameContainer.add(gameBackButton);
         gameContainer.add(gamePanel);
@@ -206,6 +211,13 @@ public class App extends JFrame implements ActionListener {
                     e2.printStackTrace();
                 }
             }
+        } else if (e.getSource() == defaultCardsButton) {
+            try {
+            buttonSound.playSound();
+            gamePanel.loadCardImage(getClass().getResource("/kortit.png"));
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
         }
 
     }
@@ -227,6 +239,7 @@ public class App extends JFrame implements ActionListener {
         resolutionComboBox.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.17), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
         volumeSlider.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.35), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
         chooseFileButton.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.52), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
+        defaultCardsButton.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.70), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
 
         // peli
         gameBackButton.setBounds(backButtonRectangle);
@@ -247,6 +260,7 @@ public class App extends JFrame implements ActionListener {
         // asetukset
         settingsBackButton.setToolTipText("Takaisin päävalikkoon");
         resolutionComboBox.setToolTipText("Valitse peli-ikkunan koko");
+        defaultCardsButton.setToolTipText("Tästä voit palauttaa pelin alkuperäiset kortit");
 
         // peli
         gameBackButton.setToolTipText("Takaisin päävalikkoon. Lopettaa pelin");
