@@ -4,6 +4,8 @@ public class MovableDeck extends Deck {
 
 	public Deck startDeck;
 
+	public boolean selected = true;
+
 	public MovableDeck(Card[] cards) {
 		super(cards);
 	}

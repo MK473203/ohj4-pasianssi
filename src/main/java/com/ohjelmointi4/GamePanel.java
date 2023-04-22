@@ -44,7 +44,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	public Color backgroundColor = new Color(0, 150, 0);
 
-	public Deck[] decks = new Deck[12];
+	public Deck[] decks = new Deck[13];
 
 	public MovableDeck selectedDeck = null;
 
@@ -69,6 +69,8 @@ public class GamePanel extends JPanel implements ActionListener {
 					if (deckToBeSelected != null) {
 						selectedDeck = deckToBeSelected;
 						selectedDeck.startDeck = deck;
+						selectedDeck.selected = true;
+						selectedDeck.cardOffsetY = deck.cardOffsetY;
 					}
 				}
 			}
@@ -80,10 +82,19 @@ public class GamePanel extends JPanel implements ActionListener {
 
 					if (deck != null && deck.canCombineWith(selectedDeck)) {
 						deck.combineWith(selectedDeck);
+						if (selectedDeck.startDeck.cards.size() > 0) {
+							selectedDeck.startDeck.cards.get(selectedDeck.startDeck.cards.size() - 1).hidden = false;
+						}
+						selectedDeck = null;
 					} else {
-						selectedDeck.startDeck.combineWith(selectedDeck);
+						selectedDeck.selected = false;
 					}
-					selectedDeck = null;
+
+					if (isWin()) {
+						// Trigger win dialog here
+						start();
+					}
+
 				}
 			}
 
@@ -142,11 +153,20 @@ public class GamePanel extends JPanel implements ActionListener {
 		Point mousePos = getMousePosition();
 
 		if (selectedDeck != null) {
-			if (mousePos != null) {
+			if (mousePos != null && selectedDeck.selected) {
 				selectedDeck.deckX = (int) mousePos.getX() - cardWidth / 2;
 				selectedDeck.deckY = (int) mousePos.getY() - deckPaddingY / 2;
 			} else {
+				int destX = selectedDeck.startDeck.deckX;
+				int destY = selectedDeck.startDeck.deckY + (selectedDeck.startDeck.cards.size()) * selectedDeck.startDeck.cardOffsetY;
 
+				selectedDeck.deckX = (destX + 2 * selectedDeck.deckX) / 3;
+				selectedDeck.deckY = (destY + 2 * selectedDeck.deckY) / 3;
+
+				if (Math.abs(destX - selectedDeck.deckX) < 5 && Math.abs(destY - selectedDeck.deckY) < 5) {
+					selectedDeck.startDeck.combineWith(selectedDeck);
+					selectedDeck = null;
+				}
 			}
 		}
 
@@ -161,7 +181,11 @@ public class GamePanel extends JPanel implements ActionListener {
 		}
 		graphics = gameImage.createGraphics();
 
-		decks[0] = new HandDeck(Card.getAllCards());
+		decks[12] = new SuitDeck();
+		decks[12].deckX = globalOffsetX + cardWidth + deckPaddingX * 2;
+		decks[12].deckY = deckPaddingY;
+
+		decks[0] = new HandDeck(Card.getAllCards(), decks[12]);
 		decks[0].deckX = globalOffsetX + deckPaddingX;
 		decks[0].deckY = deckPaddingY;
 		decks[0].shuffle();
@@ -177,10 +201,8 @@ public class GamePanel extends JPanel implements ActionListener {
 			decks[i].cardOffsetY = cardWidth / 3;
 			decks[i].deckX = globalOffsetX + deckPaddingX + (i - 5) * (cardWidth + deckPaddingX);
 			decks[i].deckY = cardHeight + 2 * deckPaddingY;
-			decks[0].dealTo(decks[i], i + 1, true);
+			decks[0].dealTo(decks[i], i - 4, true);
 		}
-
-		// selectedDeck = handDeck;
 
 		tickTimer.start();
 	}
@@ -190,6 +212,15 @@ public class GamePanel extends JPanel implements ActionListener {
 		if (graphics != null) {
 			graphics.dispose();
 		}
+	}
+
+	public boolean isWin() {
+		for (int i = 1; i < 5; i++) {
+			if (decks[i].cards.size() != 13) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void loadCardImage(URL file) {
@@ -222,7 +253,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	private void drawDeck(Graphics2D graphics, Deck deck) {
 
-		List<Card> cards = deck.getCards();
+		List<Card> cards = deck.cards;
 
 		graphics.setColor(new Color(0, 0, 0, 50));
 		graphics.fillRect(deck.deckX, deck.deckY, cardWidth, cardHeight);
@@ -238,7 +269,7 @@ public class GamePanel extends JPanel implements ActionListener {
 
 		for (Deck deck : decks) {
 
-			if (deck.deckX < x && x < deck.deckX + cardWidth && deck.deckY < y && y < deck.deckY + cardHeight + (deck.getCards().size() - 1) * deck.cardOffsetY) {
+			if (deck.deckX < x && x < deck.deckX + cardWidth && deck.deckY < y && y < deck.deckY + cardHeight + (deck.cards.size() - 1) * deck.cardOffsetY) {
 				return deck;
 			}
 
@@ -250,9 +281,15 @@ public class GamePanel extends JPanel implements ActionListener {
 
 	public MovableDeck splitDeckAtPos(Deck deck, int x, int y) {
 
-		int tempY = Math.min(y, deck.deckY + deck.getCards().size() * deck.cardOffsetY) - deck.deckY;
+		int tempY = y - deck.deckY;
+
+		tempY = Math.min(tempY, (deck.cards.size() - 1) * deck.cardOffsetY);
 
 		int index = tempY / deck.cardOffsetY;
+
+		if (deck.cards.get(index).hidden) {
+			return null;
+		}
 
 		return deck.splitAt(index);
 

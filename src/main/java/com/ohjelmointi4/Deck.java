@@ -31,10 +31,6 @@ public class Deck {
 		return null;
 	}
 
-	public List<Card> getCards() {
-		return cards;
-	}
-
 	public void shuffle() {
 		for (int i = cards.size() - 1; i > 0; i--) {
 			int j = new Random().nextInt(i + 1);
@@ -50,14 +46,16 @@ public class Deck {
 				Card card = this.cards.remove(0);
 				if (hideAllButOne) {
 					card.hidden = i != amount - 1;
+				} else {
+					card.hidden = false;
 				}
-				deck2.getCards().add(card);
+				deck2.cards.add(card);
 			}
 		}
 	}
 
 	public void combineWith(Deck deck2) {
-		this.cards.addAll(deck2.getCards());
+		this.cards.addAll(deck2.cards);
 		
 	}
 
