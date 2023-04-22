@@ -2,12 +2,13 @@ package com.ohjelmointi4;
 
 import java.util.List;
 import java.util.Random;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Deck {
 
-	private List<Card> cards;
+	protected List<Card> cards;
 
 	public int deckX = 0;
 	public int deckY = 0;
@@ -18,14 +19,16 @@ public class Deck {
 		cards = new ArrayList<Card>();
 	}
 
-	private Deck(Card[] cards) {
+	public Deck(Card[] cards) {
 		this.cards = new ArrayList<Card>(Arrays.asList(cards));
 	}
 
-	public boolean canCombine(Deck deck2) {
-		Card firstOfThisDeck = this.getCards().get(0);
-		Card lastOfThatDeck = deck2.getCards().get(deck2.getCards().size() - 1);
-		return !lastOfThatDeck.hidden && (firstOfThisDeck.getSuit() % 2 != lastOfThatDeck.getSuit() % 2) && (firstOfThisDeck.getRank() == lastOfThatDeck.getRank() + 1);
+	public boolean canCombineWith(Deck deck2) {
+		return true;
+	}
+
+	public MovableDeck handleMousePress(GamePanel gp, MouseEvent e) {
+		return null;
 	}
 
 	public List<Card> getCards() {
@@ -42,25 +45,30 @@ public class Deck {
 	}
 
 	public void dealTo(Deck deck2, int amount, boolean hideAllButOne) {
-		for (int i = 0; i < amount; i++) {
-			Card card = this.cards.remove(0);
-			if (hideAllButOne) {
-				card.hidden = i != amount - 1;
+		if (this.cards.size() >= amount) {
+			for (int i = 0; i < amount; i++) {
+				Card card = this.cards.remove(0);
+				if (hideAllButOne) {
+					card.hidden = i != amount - 1;
+				}
+				deck2.getCards().add(card);
 			}
-			deck2.getCards().add(card);
 		}
 	}
 
-	public static Deck getAllCardsDeck() {
+	public void combineWith(Deck deck2) {
+		this.cards.addAll(deck2.getCards());
 		
-		Card[] cards = new Card[52];
-		for (int suit = 0; suit < 4; suit++) {
-			for (int rank = 0; rank < 13; rank++) {
-				cards[suit * 13 + rank] = new Card(suit, rank);
-			}
-		}
+	}
 
-		return new Deck(cards);
+	public MovableDeck splitAt(int index) {
+
+		List<Card> subList = this.cards.subList(index, cards.size());
+		MovableDeck result = new MovableDeck((new ArrayList<Card>(subList)).toArray(new Card[subList.size()]));
+		subList.clear();
+
+		return result;
+
 	}
 
 }

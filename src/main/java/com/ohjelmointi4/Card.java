@@ -33,4 +33,16 @@ public class Card {
 		this.rank = Math.max(0, Math.min(12, rank));
 	}
 
+	public static Card[] getAllCards() {
+
+		Card[] cards = new Card[52];
+		for (int suit = 0; suit < 4; suit++) {
+			for (int rank = 0; rank < 13; rank++) {
+				cards[suit * 13 + rank] = new Card(suit, rank);
+			}
+		}
+
+		return cards;
+	}
+
 }
