@@ -65,14 +65,16 @@ public class GamePanel extends JPanel implements ActionListener {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				Deck deck = getDeckAtPos(e.getX(), e.getY());
-				if (deck != null) {
-					MovableDeck deckToBeSelected = deck.handleMousePress((GamePanel) e.getComponent(), e);
-					if (deckToBeSelected != null) {
-						selectedDeck = deckToBeSelected;
-						selectedDeck.startDeck = deck;
-						selectedDeck.selected = true;
-						selectedDeck.cardOffsetY = deck.cardOffsetY;
+				if (e.getButton() == MouseEvent.BUTTON1 && selectedDeck == null) {
+					Deck deck = getDeckAtPos(e.getX(), e.getY());
+					if (deck != null) {
+						MovableDeck deckToBeSelected = deck.handleMousePress((GamePanel) e.getComponent(), e);
+						if (deckToBeSelected != null) {
+							selectedDeck = deckToBeSelected;
+							selectedDeck.startDeck = deck;
+							selectedDeck.selected = true;
+							selectedDeck.cardOffsetY = deck.cardOffsetY;
+						}
 					}
 				}
 			}
