@@ -2,6 +2,8 @@ package com.ohjelmointi4;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import java.awt.Canvas;
 import java.awt.CardLayout;
@@ -43,7 +45,8 @@ public class App extends JFrame implements ActionListener {
     JButton settingsBackButton = new JButton("Takaisin");
     String[] resolutions = {"800x600", "1200x800", "1920x1080"};
     final JComboBox<String> resolutionComboBox = new JComboBox<String>(resolutions);
-    JSlider volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+    JSlider volumeSlider = new JSlider(JSlider.HORIZONTAL, -80, 30, -25);
+    int volume = 100;
     JButton chooseFileButton = new JButton("Valitse tiedosto...");
     JFileChooser cardFileChooser = new JFileChooser();
     FileFilter imageFileFilter = new FileFilter() {
@@ -74,6 +77,9 @@ public class App extends JFrame implements ActionListener {
         }
 
     };
+
+    JButton defaultCardsButton = new JButton("Oletuskortit");
+
     // peli
     Container gameContainer = new Container();
     JButton gameBackButton = new JButton("Takaisin");
@@ -148,6 +154,15 @@ public class App extends JFrame implements ActionListener {
             }
         });
         cardFileChooser.setFileFilter(imageFileFilter);
+        defaultCardsButton.addActionListener(this);
+
+        volumeSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                int i = volumeSlider.getValue();
+                buttonSound.setVolume(i);
+            }
+            
+        });
 
         updateButtons();
 
@@ -164,6 +179,7 @@ public class App extends JFrame implements ActionListener {
         settingsContainer.add(resolutionComboBox);
         settingsContainer.add(volumeSlider);
         settingsContainer.add(chooseFileButton);
+        settingsContainer.add(defaultCardsButton);
 
         gameContainer.add(gameBackButton);
         gameContainer.add(gamePanel);
@@ -211,7 +227,14 @@ public class App extends JFrame implements ActionListener {
                     e2.printStackTrace();
                 }
             }
-        }
+        } else if (e.getSource() == defaultCardsButton) {
+            try {
+            buttonSound.playSound();
+            gamePanel.loadCardImage(getClass().getResource("/kortit.png"));
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        } 
 
     }
 
@@ -232,6 +255,7 @@ public class App extends JFrame implements ActionListener {
         resolutionComboBox.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.17), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
         volumeSlider.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.35), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
         chooseFileButton.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.52), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
+        defaultCardsButton.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.70), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
 
         // peli
         gameBackButton.setBounds(backButtonRectangle);
@@ -253,6 +277,7 @@ public class App extends JFrame implements ActionListener {
         // asetukset
         settingsBackButton.setToolTipText("Takaisin päävalikkoon");
         resolutionComboBox.setToolTipText("Valitse peli-ikkunan koko");
+        defaultCardsButton.setToolTipText("Tästä voit palauttaa pelin alkuperäiset kortit");
 
         // peli
         gameBackButton.setToolTipText("Takaisin päävalikkoon. Lopettaa pelin");
