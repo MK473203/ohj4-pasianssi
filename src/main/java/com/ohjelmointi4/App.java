@@ -24,6 +24,8 @@ import java.util.Arrays;
  */
 public class App extends JFrame implements ActionListener {
 
+    public static App instance;
+
     CardLayout crd;
 
     Container cPane;
@@ -75,6 +77,7 @@ public class App extends JFrame implements ActionListener {
     // peli
     Container gameContainer = new Container();
     JButton gameBackButton = new JButton("Takaisin");
+    JTextArea scoreText = new JTextArea("Siirrot: 0");
     GamePanel gamePanel;
 
     Sound buttonSound;
@@ -85,6 +88,8 @@ public class App extends JFrame implements ActionListener {
     App() {
 
         super("Pasianssi");
+
+        instance = this;
 
         cPane = getContentPane();
 
@@ -230,6 +235,7 @@ public class App extends JFrame implements ActionListener {
 
         // peli
         gameBackButton.setBounds(backButtonRectangle);
+        scoreText.setBounds(cPane.getWidth() / 2 - (int)(cPane.getWidth() * 0.3), cPane.getHeight() - 75, (int)(cPane.getWidth() * 0.3), 100);
         gamePanel.setBounds(0, 0, cPane.getWidth() - 100, cPane.getHeight() - 100);
     }
 
@@ -251,6 +257,10 @@ public class App extends JFrame implements ActionListener {
         // peli
         gameBackButton.setToolTipText("Takaisin päävalikkoon. Lopettaa pelin");
 
+    }
+
+    public void updateTexts() {
+        scoreText.setText("Siirrot: " + gamePanel.moves);
     }
 
 

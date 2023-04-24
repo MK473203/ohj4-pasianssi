@@ -42,6 +42,8 @@ public class GamePanel extends JPanel implements ActionListener {
 	public int deckPaddingY;
 	public int globalOffsetX;
 
+	public int moves = 0;
+
 	public Color backgroundColor = new Color(0, 150, 0);
 
 	public Deck[] decks = new Deck[13];
@@ -86,6 +88,8 @@ public class GamePanel extends JPanel implements ActionListener {
 							selectedDeck.startDeck.cards.get(selectedDeck.startDeck.cards.size() - 1).hidden = false;
 						}
 						selectedDeck = null;
+						moves++;
+						App.instance.updateTexts();
 					} else {
 						selectedDeck.selected = false;
 					}
@@ -147,9 +151,6 @@ public class GamePanel extends JPanel implements ActionListener {
 		ticks++;
 		tickTimer.restart();
 
-		// handDeck.deckY = 250 + (int) (250 * Math.sin(ticks / 10.0));
-		// decks[0].deckX = 100 + (int) (50 * Math.cos(ticks / 3.0));
-
 		Point mousePos = getMousePosition();
 
 		if (selectedDeck != null) {
@@ -203,6 +204,8 @@ public class GamePanel extends JPanel implements ActionListener {
 			decks[i].deckY = cardHeight + 2 * deckPaddingY;
 			decks[0].dealTo(decks[i], i - 4, true);
 		}
+
+		moves = 0;
 
 		tickTimer.start();
 	}
