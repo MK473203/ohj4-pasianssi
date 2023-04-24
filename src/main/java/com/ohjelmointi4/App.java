@@ -2,6 +2,8 @@ package com.ohjelmointi4;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
 import java.awt.Canvas;
 import java.awt.CardLayout;
@@ -41,7 +43,8 @@ public class App extends JFrame implements ActionListener {
     JButton settingsBackButton = new JButton("Takaisin");
     String[] resolutions = {"800x600", "1200x800", "1920x1080"};
     final JComboBox<String> resolutionComboBox = new JComboBox<String>(resolutions);
-    JSlider volumeSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 50);
+    JSlider volumeSlider = new JSlider(JSlider.HORIZONTAL, -80, 30, -25);
+    int volume = 100;
     JButton chooseFileButton = new JButton("Valitse tiedosto...");
     JFileChooser cardFileChooser = new JFileChooser();
     FileFilter imageFileFilter = new FileFilter() {
@@ -148,6 +151,14 @@ public class App extends JFrame implements ActionListener {
         cardFileChooser.setFileFilter(imageFileFilter);
         defaultCardsButton.addActionListener(this);
 
+        volumeSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                int i = volumeSlider.getValue();
+                buttonSound.setVolume(i);
+            }
+            
+        });
+
         updateButtons();
 
         gameBackButton.addActionListener(this);
@@ -218,7 +229,7 @@ public class App extends JFrame implements ActionListener {
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
-        }
+        } 
 
     }
 
