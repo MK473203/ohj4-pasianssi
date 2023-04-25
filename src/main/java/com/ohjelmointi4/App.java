@@ -10,6 +10,7 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -84,16 +85,18 @@ public class App extends JFrame implements ActionListener {
 
     // peli
     Container gameContainer = new Container();
-    JButton gameBackButton = new JButton("Takaisin");
+    JButton gameBackButton = new JButton();
+    JLabel gameBackLabel = new JLabel("Takaisin");
     JLabel scoreText = new JLabel("Siirrot: 0");
     JLabel timeText = new JLabel("Aika: 0:00");
     GamePanel gamePanel;
-    JButton instructionsButton = new JButton("Ohjeet");
-    JButton restartGameButton = new JButton("Aloita alusta");
+    JButton gameInstructionsButton = new JButton();
+    JButton gameRestartGameButton = new JButton();
 
     Sound buttonSound;
 
     ImageIcon icon = new ImageIcon(getClass().getResource("/nimetön.png"));
+    ImageIcon backButtonIcon = new ImageIcon(getClass().getResource("/nuoli.png"));
 
     // constructor of the class
     App() {
@@ -128,6 +131,7 @@ public class App extends JFrame implements ActionListener {
         timeText.setHorizontalAlignment(SwingConstants.CENTER);
         timeText.setVerticalAlignment(SwingConstants.CENTER);
 
+     
         
 
         // Adding listeners to the buttons
@@ -179,7 +183,7 @@ public class App extends JFrame implements ActionListener {
         buttonMouseOvers();
 
         gameBackButton.addActionListener(this);
-        instructionsButton.addActionListener(this);
+        gameInstructionsButton.addActionListener(this);
 
         mainMenuContainer.add(newGameButton);
         mainMenuContainer.add(leaderboardButton);
@@ -198,8 +202,9 @@ public class App extends JFrame implements ActionListener {
         gameContainer.add(scoreText);
         gameContainer.add(timeText);
         gameContainer.add(gamePanel);
-        gameContainer.add(instructionsButton);
-        gameContainer.add(restartGameButton);
+        gameContainer.add(gameInstructionsButton);
+        gameContainer.add(gameRestartGameButton);
+        gameContainer.add(gameBackLabel);
 
         cPane.add("main menu", mainMenuContainer);
         cPane.add("leaderboards", leaderboardContainer);
@@ -289,8 +294,19 @@ public class App extends JFrame implements ActionListener {
         scoreText.setBounds(4 * cPane.getWidth() / 5 - (int) (cPane.getWidth() * 0.15), cPane.getHeight() - 100, (int) (cPane.getWidth() * 0.3), 100);
         timeText.setBounds(cPane.getWidth() / 2 - (int) (cPane.getWidth() * 0.15), cPane.getHeight() - 100, (int) (cPane.getWidth() * 0.3), 100);
         gamePanel.setBounds(0, 0, (int) (cPane.getWidth() * 0.875), cPane.getHeight() - 100);
-        instructionsButton.setBounds( (int) (cPane.getWidth() * 0.88), (int) (cPane.getHeight() * 0.15), (int) (cPane.getWidth() * 0.10), (int) (cPane.getHeight() * 0.05) );
-        restartGameButton.setBounds( (int) (cPane.getWidth() * 0.88), (int) (cPane.getHeight() * 0.25), (int) (cPane.getWidth() * 0.10), (int) (cPane.getHeight() * 0.05) );
+        gameInstructionsButton.setBounds( (int) (cPane.getWidth() * 0.88), (int) (cPane.getHeight() * 0.15), (int) (cPane.getWidth() * 0.10), (int) (cPane.getHeight() * 0.05) );
+        gameRestartGameButton.setBounds( (int) (cPane.getWidth() * 0.88), (int) (cPane.getHeight() * 0.25), (int) (cPane.getWidth() * 0.10), (int) (cPane.getHeight() * 0.05) );
+
+        //takaisin nappien ikoni
+        Image image = backButtonIcon.getImage();
+        ImageIcon newImg = new ImageIcon( image.getScaledInstance( (int) (gameBackButton.getWidth()* 0.95 ) , (int) ( gameBackButton.getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
+        gameBackButton.setIcon (newImg) ;
+        leaderboardBackButton.setIcon(newImg);
+        settingsBackButton.setIcon(newImg);
+
+        //takaisin nappien teksti
+       // gameBackLabel.setBounds(25+gameBackButton.getX()+gameBackButton.getWidth()+100 ,(int) (cPane.getWidth() * 0.15), 100, 100);
+
     }
 
     public void buttonMouseOvers() {
@@ -311,6 +327,10 @@ public class App extends JFrame implements ActionListener {
 
         // peli
         gameBackButton.setToolTipText("Takaisin päävalikkoon. Lopettaa pelin");
+        gameInstructionsButton.setToolTipText("Pelin ohjeet");
+        gameRestartGameButton.setToolTipText("Aloittaa uuden pelin. Vanha peli menetetään");
+
+        
 
     }
 
