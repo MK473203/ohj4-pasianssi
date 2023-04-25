@@ -88,6 +88,8 @@ public class App extends JFrame implements ActionListener {
     JLabel scoreText = new JLabel("Siirrot: 0");
     JLabel timeText = new JLabel("Aika: 0:00");
     GamePanel gamePanel;
+    JButton instructionsButton = new JButton("Ohjeet");
+    JButton restartGameButton = new JButton("Aloita alusta");
 
     Sound buttonSound;
 
@@ -177,6 +179,7 @@ public class App extends JFrame implements ActionListener {
         buttonMouseOvers();
 
         gameBackButton.addActionListener(this);
+        instructionsButton.addActionListener(this);
 
         mainMenuContainer.add(newGameButton);
         mainMenuContainer.add(leaderboardButton);
@@ -195,7 +198,8 @@ public class App extends JFrame implements ActionListener {
         gameContainer.add(scoreText);
         gameContainer.add(timeText);
         gameContainer.add(gamePanel);
-
+        gameContainer.add(instructionsButton);
+        gameContainer.add(restartGameButton);
 
         cPane.add("main menu", mainMenuContainer);
         cPane.add("leaderboards", leaderboardContainer);
@@ -284,7 +288,9 @@ public class App extends JFrame implements ActionListener {
         gameBackButton.setBounds(backButtonRectangle);
         scoreText.setBounds(4 * cPane.getWidth() / 5 - (int) (cPane.getWidth() * 0.15), cPane.getHeight() - 100, (int) (cPane.getWidth() * 0.3), 100);
         timeText.setBounds(cPane.getWidth() / 2 - (int) (cPane.getWidth() * 0.15), cPane.getHeight() - 100, (int) (cPane.getWidth() * 0.3), 100);
-        gamePanel.setBounds(0, 0, cPane.getWidth() - 100, cPane.getHeight() - 100);
+        gamePanel.setBounds(0, 0, (int) (cPane.getWidth() * 0.875), cPane.getHeight() - 100);
+        instructionsButton.setBounds( (int) (cPane.getWidth() * 0.88), (int) (cPane.getHeight() * 0.15), (int) (cPane.getWidth() * 0.10), (int) (cPane.getHeight() * 0.05) );
+        restartGameButton.setBounds( (int) (cPane.getWidth() * 0.88), (int) (cPane.getHeight() * 0.25), (int) (cPane.getWidth() * 0.10), (int) (cPane.getHeight() * 0.05) );
     }
 
     public void buttonMouseOvers() {
