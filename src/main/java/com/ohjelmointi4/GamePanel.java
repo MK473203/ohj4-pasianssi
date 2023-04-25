@@ -43,6 +43,7 @@ public class GamePanel extends JPanel implements ActionListener {
 	public int globalOffsetX;
 
 	public int moves = 0;
+	public long startTime;
 
 	public Color backgroundColor = new Color(0, 150, 0);
 
@@ -91,13 +92,13 @@ public class GamePanel extends JPanel implements ActionListener {
 						}
 						selectedDeck = null;
 						moves++;
-						App.instance.updateTexts();
+						App.instance.updateGameTexts();
 					} else {
 						selectedDeck.selected = false;
 					}
 
 					if (isWin()) {
-						// Trigger win dialog here
+						// Trigger win dialog here -------------------------------------------------------
 						start();
 					}
 
@@ -144,7 +145,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		cardWidth = cardHeight * cardImageCardWidth / cardImageCardHeight;
 		deckPaddingX = cardWidth / 3;
 		deckPaddingY = cardWidth / 3;
-		globalOffsetX = (getWidth() - 6 * (cardWidth + deckPaddingX)) / 2;
+		globalOffsetX = (getWidth() - 7 * (cardWidth + deckPaddingX)) / 2;
 		cardImageToGameImage.setToScale(cardWidth / (double) cardImageCardWidth, cardHeight / (double) cardImageCardHeight);
 	}
 
@@ -172,6 +173,8 @@ public class GamePanel extends JPanel implements ActionListener {
 				}
 			}
 		}
+		
+		App.instance.updateGameTexts();
 
 		repaint();
 
@@ -185,24 +188,24 @@ public class GamePanel extends JPanel implements ActionListener {
 		graphics = gameImage.createGraphics();
 
 		decks[12] = new SuitDeck();
-		decks[12].deckX = globalOffsetX + cardWidth + deckPaddingX * 2;
+		decks[12].deckX = globalOffsetX + cardWidth + deckPaddingX;
 		decks[12].deckY = deckPaddingY;
 
 		decks[0] = new HandDeck(Card.getAllCards(), decks[12]);
-		decks[0].deckX = globalOffsetX + deckPaddingX;
+		decks[0].deckX = globalOffsetX;
 		decks[0].deckY = deckPaddingY;
 		decks[0].shuffle();
 
 		for (int i = 1; i < 5; i++) {
 			decks[i] = new SuitDeck();
-			decks[i].deckX = globalOffsetX + deckPaddingX + (2 + i) * (cardWidth + deckPaddingX);
+			decks[i].deckX = globalOffsetX + (2 + i) * (cardWidth + deckPaddingX);
 			decks[i].deckY = deckPaddingY;
 		}
 
 		for (int i = 5; i < 12; i++) {
 			decks[i] = new MainDeck();
 			decks[i].cardOffsetY = cardWidth / 3;
-			decks[i].deckX = globalOffsetX + deckPaddingX + (i - 5) * (cardWidth + deckPaddingX);
+			decks[i].deckX = globalOffsetX + (i - 5) * (cardWidth + deckPaddingX);
 			decks[i].deckY = cardHeight + 2 * deckPaddingY;
 			decks[0].dealTo(decks[i], i - 4, true);
 		}
@@ -210,6 +213,7 @@ public class GamePanel extends JPanel implements ActionListener {
 		moves = 0;
 
 		tickTimer.start();
+		startTime = System.nanoTime();
 	}
 
 	public void stop() {
