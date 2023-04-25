@@ -119,6 +119,7 @@ public class App extends JFrame implements ActionListener {
         // peli
         gamePanel = new GamePanel();
 
+        
 
         // Adding listeners to the buttons
         newGameButton.addActionListener(this);
@@ -210,8 +211,8 @@ public class App extends JFrame implements ActionListener {
         } else if (e.getSource() == quitButton) {
             System.exit(0);
 
-        } else if (e.getSource() == gameBackButton || e.getSource() == settingsBackButton || e.getSource() == leaderboardBackButton) {
-            gamePanel.stop();
+        } else if (e.getSource() == settingsBackButton || e.getSource() == leaderboardBackButton) {
+            
             crd.show(cPane, "main menu");
             buttonSound.playSound();
 
@@ -234,7 +235,18 @@ public class App extends JFrame implements ActionListener {
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
-        } 
+        } else if (e.getSource() == gameBackButton ) {
+
+            Object[] o = {"Ok", "Peruuta"};
+            int i = JOptionPane.showOptionDialog(this, "Tämä lopettaa pelin", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE, null, o, null);
+
+            if (i == 0) {
+            gamePanel.stop();
+            crd.show(cPane, "main menu");
+            buttonSound.playSound();
+            }
+
+        }
 
     }
 
