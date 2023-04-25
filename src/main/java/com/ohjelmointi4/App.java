@@ -9,6 +9,7 @@ import java.awt.Canvas;
 import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 
 
@@ -83,7 +85,8 @@ public class App extends JFrame implements ActionListener {
     // peli
     Container gameContainer = new Container();
     JButton gameBackButton = new JButton("Takaisin");
-    JTextArea scoreText = new JTextArea("Siirrot: 0");
+    JLabel scoreText = new JLabel("Siirrot: 0");
+    JLabel timeText = new JLabel("Aika: 0:00");
     GamePanel gamePanel;
 
     Sound buttonSound;
@@ -114,10 +117,14 @@ public class App extends JFrame implements ActionListener {
         setIconImage(icon.getImage());
         setResizable(false);
 
-        buttonMouseOvers();
-
         // peli
         gamePanel = new GamePanel();
+        scoreText.setFont(new Font("Serif", Font.PLAIN, 24));
+        scoreText.setHorizontalAlignment(SwingConstants.CENTER);
+        scoreText.setVerticalAlignment(SwingConstants.CENTER);
+        timeText.setFont(new Font("Serif", Font.PLAIN, 24));
+        timeText.setHorizontalAlignment(SwingConstants.CENTER);
+        timeText.setVerticalAlignment(SwingConstants.CENTER);
 
 
         // Adding listeners to the buttons
@@ -150,7 +157,7 @@ public class App extends JFrame implements ActionListener {
                         pack();
                         break;
                 }
-                updateButtons();
+                updateBounds();
             }
         });
         cardFileChooser.setFileFilter(imageFileFilter);
@@ -161,10 +168,12 @@ public class App extends JFrame implements ActionListener {
                 int i = volumeSlider.getValue();
                 buttonSound.setVolume(i);
             }
-            
+
         });
 
-        updateButtons();
+        updateBounds();
+        updateGameTexts();
+        buttonMouseOvers();
 
         gameBackButton.addActionListener(this);
 
@@ -182,6 +191,8 @@ public class App extends JFrame implements ActionListener {
         settingsContainer.add(defaultCardsButton);
 
         gameContainer.add(gameBackButton);
+        gameContainer.add(scoreText);
+        gameContainer.add(timeText);
         gameContainer.add(gamePanel);
 
 
@@ -229,16 +240,16 @@ public class App extends JFrame implements ActionListener {
             }
         } else if (e.getSource() == defaultCardsButton) {
             try {
-            buttonSound.playSound();
-            gamePanel.loadCardImage(getClass().getResource("/kortit.png"));
+                buttonSound.playSound();
+                gamePanel.loadCardImage(getClass().getResource("/kortit.png"));
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
-        } 
+        }
 
     }
 
-    public void updateButtons() {
+    public void updateBounds() {
 
         Rectangle backButtonRectangle = new Rectangle(25, cPane.getHeight() - 75, (int) (cPane.getWidth() * 0.15), 50);
 
@@ -259,7 +270,8 @@ public class App extends JFrame implements ActionListener {
 
         // peli
         gameBackButton.setBounds(backButtonRectangle);
-        scoreText.setBounds(cPane.getWidth() / 2 - (int)(cPane.getWidth() * 0.3), cPane.getHeight() - 75, (int)(cPane.getWidth() * 0.3), 100);
+        scoreText.setBounds(4 * cPane.getWidth() / 5 - (int) (cPane.getWidth() * 0.15), cPane.getHeight() - 100, (int) (cPane.getWidth() * 0.3), 100);
+        timeText.setBounds(cPane.getWidth() / 2 - (int) (cPane.getWidth() * 0.15), cPane.getHeight() - 100, (int) (cPane.getWidth() * 0.3), 100);
         gamePanel.setBounds(0, 0, cPane.getWidth() - 100, cPane.getHeight() - 100);
     }
 
@@ -284,8 +296,10 @@ public class App extends JFrame implements ActionListener {
 
     }
 
-    public void updateTexts() {
+    public void updateGameTexts() {
         scoreText.setText("Siirrot: " + gamePanel.moves);
+        long timeInSeconds = TimeUnit.SECONDS.convert(System.nanoTime() - gamePanel.startTime, TimeUnit.NANOSECONDS);
+        timeText.setText(String.format("Aika: %d:%02d", timeInSeconds / 60, timeInSeconds % 60));
     }
 
 
