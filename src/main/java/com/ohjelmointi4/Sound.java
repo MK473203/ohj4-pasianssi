@@ -28,7 +28,7 @@ public class Sound {
                 clip.open(audioInputStream);
                 FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                 volume.setValue((volumeForFloatControl() ));
-                System.out.println(volume);
+    
                 clip.start();
                 //clip.stop();
                 audioInputStream.close();
