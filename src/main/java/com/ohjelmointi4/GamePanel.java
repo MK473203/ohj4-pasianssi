@@ -1,10 +1,15 @@
 package com.ohjelmointi4;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Point;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -17,8 +22,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.imageio.*;
 
@@ -103,9 +110,40 @@ public class GamePanel extends JPanel implements ActionListener {
 
 					if (!isWin()) {
 						long gameDurationSeconds = TimeUnit.SECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
-						Object dialogString = String.format("Voitit pelin!\nAika: %d:%02d\nSiirrot: %d\nNimi:", gameDurationSeconds / 60, gameDurationSeconds % 60, moves);
-						Object[] options = {new JButton("Tallenna"), new JButton("Älä tallenna")};
-						String name = JOptionPane.showInputDialog(App.instance, dialogString, "Onneksi olkoon!", JOptionPane.INFORMATION_MESSAGE, null, options, null).toString();
+						String dialogString = "<html>Voitit pelin!<br>Aika:<br>Siirrot:</html>";
+						String dialogString2 = String.format("<html><br>%d:%02d<br>%d</html>", gameDurationSeconds / 60, gameDurationSeconds % 60, moves);
+
+						Object[] options = {"Tallenna", "Älä tallenna"};
+
+						JPanel panel = new JPanel();
+						//panel.setBackground(Color.GRAY);
+						panel.setLayout(new GridBagLayout());
+						GridBagConstraints c = new GridBagConstraints();
+						c.fill = GridBagConstraints.HORIZONTAL;
+						c.ipadx = 30;
+						c.gridx = 0;
+						c.gridy = 0;
+						JLabel label = new JLabel(dialogString);
+						panel.add(label, c);
+
+						c.gridx = 1;
+						c.gridy = 0;
+						panel.add(new JLabel(dialogString2), c);
+
+						c.gridx = 0;
+						c.gridy = 1;
+						panel.add(new JLabel("Nimi:"), c);
+						JTextField textField = new JTextField("Pelaaja");
+						c.gridx = 1;
+						c.gridy = 1;
+						panel.add(textField, c);
+
+						int result = JOptionPane.showOptionDialog(App.instance, panel, "Onneksi olkoon!", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, null);
+
+						if (result == JOptionPane.YES_OPTION) {
+							String name = textField.getText();
+							System.out.println(name);
+						}
 					}
 
 				}
