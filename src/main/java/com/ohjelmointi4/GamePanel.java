@@ -21,7 +21,12 @@ import java.util.concurrent.TimeUnit;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.time.LocalDateTime;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -110,7 +115,8 @@ public class GamePanel extends JPanel implements ActionListener {
 					}
 
 					if (!isWin()) {
-						long gameDurationSeconds = TimeUnit.SECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
+						tickTimer.stop();
+						int gameDurationSeconds = (int)TimeUnit.SECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
 						String dialogString = "<html>Voitit pelin!<br>Aika:<br>Siirrot:</html>";
 						String dialogString2 = String.format("<html><br>%d:%02d<br>%d</html>", gameDurationSeconds / 60, gameDurationSeconds % 60, moves);
 
@@ -147,7 +153,14 @@ public class GamePanel extends JPanel implements ActionListener {
 
 						if (result == JOptionPane.YES_OPTION) {
 							String name = textField.getText();
-							System.out.println(name);
+							LeaderboardItem item = new LeaderboardItem(name, gameDurationSeconds, moves, LocalDateTime.now());
+							try {
+								App.instance.leaderboardItems.add(item);
+								App.instance.saveLeaderboard();
+							} catch (Exception e2) {
+								e2.printStackTrace();
+							}
+
 						}
 					}
 
@@ -306,7 +319,7 @@ public class GamePanel extends JPanel implements ActionListener {
 			cardSprite = cardImage.getSubimage(card.getRank() * cardImageCardWidth, card.getSuit() * cardImageCardHeight, cardImageCardWidth, cardImageCardHeight);
 		}
 
-		graphics.drawImage(cardSprite, new AffineTransformOp(cardImageToGameImage, AffineTransformOp.TYPE_BICUBIC), x, y);
+		graphics.drawImage(cardSprite, new AffineTransformOp(cardImageToGameImage, AffineTransformOp.TYPE_BILINEAR), x, y);
 	}
 
 	private void drawDeck(Graphics2D graphics, Deck deck) {

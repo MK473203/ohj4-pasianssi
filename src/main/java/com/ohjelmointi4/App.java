@@ -17,8 +17,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -43,6 +50,7 @@ public class App extends JFrame implements ActionListener {
     // pisteet
     Container leaderboardContainer = new Container();
     JButton leaderboardBackButton = new JButton();
+    List<LeaderboardItem> leaderboardItems = new ArrayList<LeaderboardItem>();
     // asetukset
     Container settingsContainer = new Container();
     JButton settingsBackButton = new JButton();
@@ -146,7 +154,12 @@ public class App extends JFrame implements ActionListener {
         timeText.setVerticalAlignment(SwingConstants.CENTER);
 
      
-        
+        // pisteet
+        loadLeaderboard();
+        leaderboardItems.add(new LeaderboardItem("Pelaaja1", 100, 30, LocalDateTime.now()));
+        leaderboardItems.add(new LeaderboardItem("Pelaaja2", 300, 20, LocalDateTime.now()));
+        leaderboardItems.add(new LeaderboardItem("Pelaaja3", 33, 33, LocalDateTime.now()));
+        saveLeaderboard();
 
         // Adding listeners to the buttons
         newGameButton.addActionListener(this);
@@ -393,6 +406,28 @@ public class App extends JFrame implements ActionListener {
         scoreText.setText("Siirrot: " + gamePanel.moves);
         long timeInSeconds = TimeUnit.SECONDS.convert(System.nanoTime() - gamePanel.startTime, TimeUnit.NANOSECONDS);
         timeText.setText(String.format("Aika: %d:%02d", timeInSeconds / 60, timeInSeconds % 60));
+    }
+
+    public void loadLeaderboard() {
+        try {
+            FileInputStream fis = new FileInputStream("pisteet.data");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            leaderboardItems = (ArrayList<LeaderboardItem>) ois.readObject();
+            ois.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void saveLeaderboard() {
+        try {
+            FileOutputStream fos = new FileOutputStream("pisteet.data");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(leaderboardItems);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
