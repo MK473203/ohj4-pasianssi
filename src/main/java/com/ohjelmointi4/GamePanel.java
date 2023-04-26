@@ -119,7 +119,7 @@ public class GamePanel extends JPanel implements ActionListener {
 						//panel.setBackground(Color.GRAY);
 						panel.setLayout(new GridBagLayout());
 						GridBagConstraints c = new GridBagConstraints();
-						c.fill = GridBagConstraints.HORIZONTAL;
+						c.fill = GridBagConstraints.BOTH;
 						c.ipadx = 30;
 						c.gridx = 0;
 						c.gridy = 0;
@@ -133,6 +133,7 @@ public class GamePanel extends JPanel implements ActionListener {
 						c.gridx = 0;
 						c.gridy = 1;
 						panel.add(new JLabel("Nimi:"), c);
+
 						JTextField textField = new JTextField("Pelaaja");
 						c.gridx = 1;
 						c.gridy = 1;
