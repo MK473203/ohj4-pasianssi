@@ -105,6 +105,10 @@ public class App extends JFrame implements ActionListener {
     ImageIcon icon = new ImageIcon(getClass().getResource("/nimetön.png"));
     ImageIcon backButtonIcon = new ImageIcon(getClass().getResource("/nuoli.png"));
     ImageIcon restartGameButtonIcon = new ImageIcon(getClass().getResource("/uusiPeli.png"));
+    ImageIcon gameInstructionIcon = new ImageIcon( getClass().getResource("/ohjeet.png") );
+
+    JLabel restartGamLabel = new JLabel("Uusi peli");
+    JLabel gameInstructionLabel = new JLabel("Ohjeet");
 
     // constructor of the class
     App() {
@@ -218,6 +222,8 @@ public class App extends JFrame implements ActionListener {
         gameContainer.add(gameInstructionsButton);
         gameContainer.add(gameRestartGameButton);
         gameContainer.add(gameBackLabel);
+        gameContainer.add(gameInstructionLabel);
+        gameContainer.add(restartGamLabel);
 
         cPane.add("main menu", mainMenuContainer);
         cPane.add("leaderboards", leaderboardContainer);
@@ -337,7 +343,6 @@ public class App extends JFrame implements ActionListener {
         settingsBackButton.setIcon(newImg);
 
         //takaisin nappien teksti
-       // gameBackLabel.setBounds(25+gameBackButton.getX()+gameBackButton.getWidth()+100 ,(int) (cPane.getWidth() * 0.15), 100, 100);
         settingsBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5 ) , 100, 100);
         gameBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5 ) , 100, 100);
         leaderboardsBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5 ) , 100, 100);
@@ -346,6 +351,16 @@ public class App extends JFrame implements ActionListener {
        image = restartGameButtonIcon.getImage();
        newImg = new ImageIcon( image.getScaledInstance( (int) (gameBackButton.getWidth()* 0.95 ) , (int) ( gameBackButton.getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
        gameRestartGameButton.setIcon(newImg);
+
+       image = gameInstructionIcon.getImage();
+       newImg = new ImageIcon( image.getScaledInstance( (int) (gameBackButton.getWidth()* 0.95 ) , (int) ( gameBackButton.getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
+       gameInstructionsButton.setIcon(newImg);
+
+        //peli ohjeet ja uusi peli jlabel
+        gameInstructionLabel.setBounds( (int) (width * 0.88 + gameInstructionsButton.getWidth()*0.25 ), (int) (height * 0.25), (int) (width * 0.10), (int) (width * 0.10)  );
+        restartGamLabel.setBounds( (int) (width * 0.88 + gameRestartGameButton.getWidth()*0.25 ), (int) (height * 0.45), (int) (width * 0.10), (int) (width * 0.10) );
+
+
     }
 
     public void buttonMouseOvers() {
