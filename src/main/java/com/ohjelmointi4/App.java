@@ -51,6 +51,10 @@ public class App extends JFrame implements ActionListener {
     Container leaderboardContainer = new Container();
     JButton leaderboardBackButton = new JButton();
     List<LeaderboardItem> leaderboardItems = new ArrayList<LeaderboardItem>();
+    JLabel leaderboardGamerLabel = new JLabel("Pelaaja");
+    JLabel leaderboardTimeLabel = new JLabel("Aika");
+    JLabel leaderboardMovesLabel = new JLabel("Siirrot");
+    JLabel leaderboardDateLabel = new JLabel("Pvm.");
     // asetukset
     Container settingsContainer = new Container();
     JButton settingsBackButton = new JButton();
@@ -105,7 +109,7 @@ public class App extends JFrame implements ActionListener {
     JLabel scoreText = new JLabel("Siirrot: 0");
     JLabel timeText = new JLabel("Aika: 0:00");
     GamePanel gamePanel;
-    JButton gameInstructionsButton = new JButton();
+    JButton gameInstructionsButton = new JButton("?");
     JButton gameRestartGameButton = new JButton();
 
     Sound buttonSound;
@@ -144,12 +148,10 @@ public class App extends JFrame implements ActionListener {
 
         // peli
         gamePanel = new GamePanel();
-        Font font = getFont();
-        font = font.deriveFont(24.0f);
-        scoreText.setFont(font);
+        scoreText.setFont(new Font("Serif", Font.PLAIN, 24));
         scoreText.setHorizontalAlignment(SwingConstants.CENTER);
         scoreText.setVerticalAlignment(SwingConstants.CENTER);
-        timeText.setFont(font);
+        timeText.setFont(new Font("Serif", Font.PLAIN, 24));
         timeText.setHorizontalAlignment(SwingConstants.CENTER);
         timeText.setVerticalAlignment(SwingConstants.CENTER);
 
@@ -219,6 +221,10 @@ public class App extends JFrame implements ActionListener {
 
         leaderboardContainer.add(leaderboardBackButton);
         leaderboardContainer.add(leaderboardsBackLabel);
+        leaderboardContainer.add(leaderboardGamerLabel);
+        leaderboardContainer.add(leaderboardTimeLabel);
+        leaderboardContainer.add(leaderboardMovesLabel);
+        leaderboardContainer.add(leaderboardDateLabel);
 
         settingsContainer.add(settingsBackButton);
         settingsContainer.add(resolutionComboBox);
@@ -309,8 +315,17 @@ public class App extends JFrame implements ActionListener {
             buttonSound.playSound();
             }
         } else if (e.getSource() == gameInstructionsButton) {
+
+            String rules = "Klondike pasianssin tarkoituksena on täyttää tyhjät peruspakat pelin oikeassa yläkulmassa.\n" + 
+            "Yhteen peruspakkaan voi laittaa vain yhden maan kortteja.\n" +           
+            "Tyhjien pakkojen täyttö aloitetaan pienimmästä kortista eli ässästä.\n Seuraavaksi tyhjään pakkaan laitetaan seuraava kortti arvojärjestyksessä.\n" +
+            "Pelin voittaa, kun kaikki tyhjät peruspakat ovat täytetty ässästä kuninkaaseen asti.\n" +
+            "Vasemmassa yläreunassa on käsipakka, mistä voi ottaa kortteja.\n" +
+            "Pöydällä on seitsemän pinoa. Pinojen päällimmäisen kortin alle voi \n lisätä eri värisen maan kortin, jonka arvo on yhtä pienempi.\n" +
+            "Tyhjään pinoon voi asettaa Kuningas-arvoisen kortin.\n";
+
             String[] o = {"Ok"};
-            JOptionPane.showOptionDialog(this, "Tähän säännöt", "Säännöt", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE, null, o, null);
+            JOptionPane.showOptionDialog(this, rules, "Säännöt", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE, null, o, null);
         }
 
     }
@@ -330,6 +345,11 @@ public class App extends JFrame implements ActionListener {
 
         // pisteet
         leaderboardBackButton.setBounds(backButtonRectangle);
+        leaderboardGamerLabel.setBounds( (int) (width*0.1), (int) (height*0.1), 100, 30);
+        leaderboardTimeLabel.setBounds( (int) (width*0.3), (int) (height*0.1), 100, 30);
+        leaderboardMovesLabel.setBounds( (int) (width*0.5), (int) (height*0.1), 100, 30);
+        leaderboardDateLabel.setBounds( (int) (width*0.7), (int) (height*0.1), 100, 30);
+        
 
         // asetukset
         settingsBackButton.setBounds(backButtonRectangle);
