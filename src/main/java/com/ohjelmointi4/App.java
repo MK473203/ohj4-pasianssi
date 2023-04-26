@@ -81,6 +81,10 @@ public class App extends JFrame implements ActionListener {
 
     };
 
+    JLabel resolutionLabel = new JLabel("Ikkunan koko");
+    JLabel volumeLabel = new JLabel("Äänen voimakkuus");
+    JLabel cardsLabel = new JLabel("Korttien ulkoasu");
+
     JButton defaultCardsButton = new JButton("Oletuskortit");
 
     // peli
@@ -175,7 +179,6 @@ public class App extends JFrame implements ActionListener {
                 int i = volumeSlider.getValue();
                 buttonSound.setVolume(i);
             }
-
         });
 
         updateBounds();
@@ -198,6 +201,9 @@ public class App extends JFrame implements ActionListener {
         settingsContainer.add(volumeSlider);
         settingsContainer.add(chooseFileButton);
         settingsContainer.add(defaultCardsButton);
+        settingsContainer.add(resolutionLabel);
+        settingsContainer.add(volumeLabel);
+        settingsContainer.add(cardsLabel);
 
         gameContainer.add(gameBackButton);
         gameContainer.add(scoreText);
@@ -284,30 +290,38 @@ public class App extends JFrame implements ActionListener {
 
     public void updateBounds() {
 
-        Rectangle backButtonRectangle = new Rectangle(25, cPane.getHeight() - 75, (int) (cPane.getWidth() * 0.15), 50);
+        int width = cPane.getWidth();
+        int height = cPane.getHeight();
+
+        Rectangle backButtonRectangle = new Rectangle(25, height - 75, (int) (width * 0.15), 50);
 
         // menu
-        newGameButton.setBounds((cPane.getWidth() / 2) - (cPane.getWidth() / 4), cPane.getHeight() - (int) (cPane.getHeight() * 0.85), (cPane.getWidth() / 2), cPane.getHeight() / 15);
-        leaderboardButton.setBounds((cPane.getWidth() / 2) - (cPane.getWidth() / 4), cPane.getHeight() - (int) (cPane.getHeight() * 0.65), (cPane.getWidth() / 2), cPane.getHeight() / 15);
-        settingsButton.setBounds((cPane.getWidth() / 2) - (cPane.getWidth() / 4), cPane.getHeight() - (int) (cPane.getHeight() * 0.45), (cPane.getWidth() / 2), cPane.getHeight() / 15);
-        quitButton.setBounds((cPane.getWidth() / 2) - (cPane.getWidth() / 4), cPane.getHeight() - (int) (cPane.getHeight() * 0.25), (cPane.getWidth() / 2), cPane.getHeight() / 15);
+        newGameButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.85), (width / 2), height / 15);
+        leaderboardButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.65), (width / 2), height / 15);
+        settingsButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.45), (width / 2), height / 15);
+        quitButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.25), (width / 2), height / 15);
 
         // pisteet
         leaderboardBackButton.setBounds(backButtonRectangle);
+
         // asetukset
         settingsBackButton.setBounds(backButtonRectangle);
-        resolutionComboBox.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.17), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
-        volumeSlider.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.35), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
-        chooseFileButton.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.52), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
-        defaultCardsButton.setBounds((int) (cPane.getWidth() * 0.625), (int) (cPane.getHeight() * 0.70), (int) (cPane.getWidth() * 0.15), (int) (cPane.getHeight() * 0.0625));
+        resolutionComboBox.setBounds((int) (width * 0.625), (int) (height * 0.17), (int) (width * 0.15), (int) (height * 0.0625));
+        volumeSlider.setBounds((int) (width * 0.625), (int) (height * 0.35), (int) (width * 0.15), (int) (height * 0.0625));
+        chooseFileButton.setBounds((int) (width * 0.625), (int) (height * 0.52), (int) (width * 0.15), (int) (height * 0.0625));
+        defaultCardsButton.setBounds((int) (width * 0.625), (int) (height * 0.70), (int) (width * 0.15), (int) (height * 0.0625));
+
+        resolutionLabel.setBounds((int) (width * 0.325), (int) (height * 0.17), (int) (width * 0.15), (int) (height * 0.0625));
+        volumeLabel.setBounds((int) (width * 0.325), (int) (height * 0.35), (int) (width * 0.15), (int) (height * 0.0625));
+        cardsLabel.setBounds((int) (width * 0.325), (int) (height * 0.52), (int) (width * 0.15), (int) (height * 0.0625));
 
         // peli
         gameBackButton.setBounds(backButtonRectangle);
-        scoreText.setBounds(4 * cPane.getWidth() / 5 - (int) (cPane.getWidth() * 0.15), cPane.getHeight() - 100, (int) (cPane.getWidth() * 0.3), 100);
-        timeText.setBounds(cPane.getWidth() / 2 - (int) (cPane.getWidth() * 0.15), cPane.getHeight() - 100, (int) (cPane.getWidth() * 0.3), 100);
-        gamePanel.setBounds(0, 0, (int) (cPane.getWidth() * 0.875), cPane.getHeight() - 100);
-        gameInstructionsButton.setBounds( (int) (cPane.getWidth() * 0.88), (int) (cPane.getHeight() * 0.15), (int) (cPane.getWidth() * 0.10), (int) (cPane.getHeight() * 0.05) );
-        gameRestartGameButton.setBounds( (int) (cPane.getWidth() * 0.88), (int) (cPane.getHeight() * 0.25), (int) (cPane.getWidth() * 0.10), (int) (cPane.getHeight() * 0.05) );
+        scoreText.setBounds(4 * width / 5 - (int) (width * 0.15), height - 100, (int) (width * 0.3), 100);
+        timeText.setBounds(width / 2 - (int) (width * 0.15), height - 100, (int) (width * 0.3), 100);
+        gamePanel.setBounds(0, 0, (int) (width * 0.875), height - 100);
+        gameInstructionsButton.setBounds( (int) (width * 0.88), (int) (height * 0.15), (int) (width * 0.10), (int) (height * 0.05) );
+        gameRestartGameButton.setBounds( (int) (width * 0.88), (int) (height * 0.25), (int) (width * 0.10), (int) (height * 0.05) );
 
         //takaisin nappien ikoni
         Image image = backButtonIcon.getImage();
