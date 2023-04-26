@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Point;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
@@ -116,23 +117,26 @@ public class GamePanel extends JPanel implements ActionListener {
 						Object[] options = {"Tallenna", "Älä tallenna"};
 
 						JPanel panel = new JPanel();
-						//panel.setBackground(Color.GRAY);
+						// panel.setBackground(Color.GRAY);
 						panel.setLayout(new GridBagLayout());
 						GridBagConstraints c = new GridBagConstraints();
 						c.fill = GridBagConstraints.BOTH;
-						c.ipadx = 30;
+						c.weightx = 0.3;
+						c.insets = new Insets(0, 30, 0, 0);
 						c.gridx = 0;
 						c.gridy = 0;
 						JLabel label = new JLabel(dialogString);
 						panel.add(label, c);
 
-						c.gridx = 1;
-						c.gridy = 0;
-						panel.add(new JLabel(dialogString2), c);
-
 						c.gridx = 0;
 						c.gridy = 1;
 						panel.add(new JLabel("Nimi:"), c);
+
+						c.weightx = 0.65;
+						c.insets = new Insets(0, 0, 0, 0);
+						c.gridx = 1;
+						c.gridy = 0;
+						panel.add(new JLabel(dialogString2), c);
 
 						JTextField textField = new JTextField("Pelaaja");
 						c.gridx = 1;
