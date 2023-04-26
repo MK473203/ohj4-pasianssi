@@ -351,11 +351,11 @@ public class App extends JFrame implements ActionListener {
 
        //pelinäkymän nappien ikonit
        image = restartGameButtonIcon.getImage();
-       newImg = new ImageIcon( image.getScaledInstance( (int) (gameBackButton.getWidth()* 0.95 ) , (int) ( gameBackButton.getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
+       newImg = new ImageIcon( image.getScaledInstance( (int) (gameRestartGameButton.getWidth()* 0.95 ) , (int) ( gameRestartGameButton.getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
        gameRestartGameButton.setIcon(newImg);
 
        image = gameInstructionIcon.getImage();
-       newImg = new ImageIcon( image.getScaledInstance( (int) (gameBackButton.getWidth()* 0.95 ) , (int) ( gameBackButton.getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
+       newImg = new ImageIcon( image.getScaledInstance( (int) (gameInstructionsButton.getWidth()* 0.95 ) , (int) ( gameInstructionsButton.getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
        gameInstructionsButton.setIcon(newImg);
 
         //peli ohjeet ja uusi peli jlabel
