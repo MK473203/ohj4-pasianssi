@@ -43,6 +43,10 @@ public class App extends JFrame implements ActionListener {
     // pisteet
     Container leaderboardContainer = new Container();
     JButton leaderboardBackButton = new JButton();
+    JLabel leaderboardGamerLabel = new JLabel("Pelaaja");
+    JLabel leaderboardTimeLabel = new JLabel("Aika");
+    JLabel leaderboardMovesLabel = new JLabel("Siirrot");
+    JLabel leaderboardDateLabel = new JLabel("Pvm.");
     // asetukset
     Container settingsContainer = new Container();
     JButton settingsBackButton = new JButton();
@@ -201,6 +205,10 @@ public class App extends JFrame implements ActionListener {
 
         leaderboardContainer.add(leaderboardBackButton);
         leaderboardContainer.add(leaderboardsBackLabel);
+        leaderboardContainer.add(leaderboardGamerLabel);
+        leaderboardContainer.add(leaderboardTimeLabel);
+        leaderboardContainer.add(leaderboardMovesLabel);
+        leaderboardContainer.add(leaderboardDateLabel);
 
         settingsContainer.add(settingsBackButton);
         settingsContainer.add(resolutionComboBox);
@@ -321,6 +329,11 @@ public class App extends JFrame implements ActionListener {
 
         // pisteet
         leaderboardBackButton.setBounds(backButtonRectangle);
+        leaderboardGamerLabel.setBounds( (int) (width*0.1), (int) (height*0.1), 100, 30);
+        leaderboardTimeLabel.setBounds( (int) (width*0.3), (int) (height*0.1), 100, 30);
+        leaderboardMovesLabel.setBounds( (int) (width*0.5), (int) (height*0.1), 100, 30);
+        leaderboardDateLabel.setBounds( (int) (width*0.7), (int) (height*0.1), 100, 30);
+        
 
         // asetukset
         settingsBackButton.setBounds(backButtonRectangle);
