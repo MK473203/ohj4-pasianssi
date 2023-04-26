@@ -97,7 +97,7 @@ public class App extends JFrame implements ActionListener {
     JLabel scoreText = new JLabel("Siirrot: 0");
     JLabel timeText = new JLabel("Aika: 0:00");
     GamePanel gamePanel;
-    JButton gameInstructionsButton = new JButton("?");
+    JButton gameInstructionsButton = new JButton();
     JButton gameRestartGameButton = new JButton();
 
     Sound buttonSound;
