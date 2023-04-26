@@ -128,10 +128,12 @@ public class App extends JFrame implements ActionListener {
 
         // peli
         gamePanel = new GamePanel();
-        scoreText.setFont(new Font("Serif", Font.PLAIN, 24));
+        Font font = getFont();
+        font = font.deriveFont(24.0f);
+        scoreText.setFont(font);
         scoreText.setHorizontalAlignment(SwingConstants.CENTER);
         scoreText.setVerticalAlignment(SwingConstants.CENTER);
-        timeText.setFont(new Font("Serif", Font.PLAIN, 24));
+        timeText.setFont(font);
         timeText.setHorizontalAlignment(SwingConstants.CENTER);
         timeText.setVerticalAlignment(SwingConstants.CENTER);
 
