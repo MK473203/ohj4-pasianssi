@@ -1,6 +1,7 @@
 package com.ohjelmointi4;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -10,10 +11,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.imageio.*;
@@ -97,9 +101,11 @@ public class GamePanel extends JPanel implements ActionListener {
 						selectedDeck.selected = false;
 					}
 
-					if (isWin()) {
-						// Trigger win dialog here -------------------------------------------------------
-						start();
+					if (!isWin()) {
+						long gameDurationSeconds = TimeUnit.SECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
+						Object dialogString = String.format("Voitit pelin!\nAika: %d:%02d\nSiirrot: %d\nNimi:", gameDurationSeconds / 60, gameDurationSeconds % 60, moves);
+						Object[] options = {new JButton("Tallenna"), new JButton("Älä tallenna")};
+						String name = JOptionPane.showInputDialog(App.instance, dialogString, "Onneksi olkoon!", JOptionPane.INFORMATION_MESSAGE, null, options, null).toString();
 					}
 
 				}
@@ -173,7 +179,7 @@ public class GamePanel extends JPanel implements ActionListener {
 				}
 			}
 		}
-		
+
 		App.instance.updateGameTexts();
 
 		repaint();

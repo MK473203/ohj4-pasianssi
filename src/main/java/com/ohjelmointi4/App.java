@@ -180,6 +180,7 @@ public class App extends JFrame implements ActionListener {
 
         gameBackButton.addActionListener(this);
         instructionsButton.addActionListener(this);
+        restartGameButton.addActionListener(this);
 
         mainMenuContainer.add(newGameButton);
         mainMenuContainer.add(leaderboardButton);
@@ -252,7 +253,7 @@ public class App extends JFrame implements ActionListener {
             }
         } else if (e.getSource() == gameBackButton ) {
 
-            Object[] o = {"Ok", "Peruuta"};
+            String[] o = {"Ok", "Peruuta"};
             int i = JOptionPane.showOptionDialog(this, "Tämä lopettaa pelin", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE, null, o, null);
 
             if (i == 0) {
@@ -261,6 +262,17 @@ public class App extends JFrame implements ActionListener {
             buttonSound.playSound();
             }
 
+        } else if (e.getSource() == restartGameButton) {
+            String[] o = {"Kyllä", "Ei"};
+            int i = JOptionPane.showOptionDialog(this, "Haluatko varmasti aloittaa uuden pelin?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE, null, o, null);
+
+            if (i == 0) {
+            gamePanel.start();
+            buttonSound.playSound();
+            }
+        } else if (e.getSource() == instructionsButton) {
+            String[] o = {"Ok"};
+            JOptionPane.showOptionDialog(this, "Tähän säännöt", "Säännöt", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE, null, o, null);
         }
 
     }
