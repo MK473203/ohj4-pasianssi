@@ -97,7 +97,7 @@ public class App extends JFrame implements ActionListener {
     JLabel scoreText = new JLabel("Siirrot: 0");
     JLabel timeText = new JLabel("Aika: 0:00");
     GamePanel gamePanel;
-    JButton gameInstructionsButton = new JButton();
+    JButton gameInstructionsButton = new JButton("?");
     JButton gameRestartGameButton = new JButton();
 
     Sound buttonSound;
@@ -136,18 +136,13 @@ public class App extends JFrame implements ActionListener {
 
         // peli
         gamePanel = new GamePanel();
-        Font font = getFont();
-        font = font.deriveFont(24.0f);
-        scoreText.setFont(font);
+        scoreText.setFont(new Font("Serif", Font.PLAIN, 24));
         scoreText.setHorizontalAlignment(SwingConstants.CENTER);
         scoreText.setVerticalAlignment(SwingConstants.CENTER);
-        timeText.setFont(font);
+        timeText.setFont(new Font("Serif", Font.PLAIN, 24));
         timeText.setHorizontalAlignment(SwingConstants.CENTER);
         timeText.setVerticalAlignment(SwingConstants.CENTER);
-
-     
-        
-
+       
         // Adding listeners to the buttons
         newGameButton.addActionListener(this);
         leaderboardButton.addActionListener(this);
@@ -296,8 +291,17 @@ public class App extends JFrame implements ActionListener {
             buttonSound.playSound();
             }
         } else if (e.getSource() == gameInstructionsButton) {
+
+            String rules = "Klondike pasianssin tarkoituksena on täyttää tyhjät peruspakat pelin oikeassa yläkulmassa.\n" + 
+            "Yhteen peruspakkaan voi laittaa vain yhden maan kortteja.\n" +           
+            "Tyhjien pakkojen täyttö aloitetaan pienimmästä kortista eli ässästä.\n Seuraavaksi tyhjään pakkaan laitetaan seuraava kortti arvojärjestyksessä.\n" +
+            "Pelin voittaa, kun kaikki tyhjät peruspakat ovat täytetty ässästä kuninkaaseen asti.\n" +
+            "Vasemmassa yläreunassa on käsipakka, mistä voi ottaa kortteja.\n" +
+            "Pöydällä on seitsemän pinoa. Pinojen päällimmäisen kortin alle voi \n lisätä eri värisen maan kortin, jonka arvo on yhtä pienempi.\n" +
+            "Tyhjään pinoon voi asettaa Kuningas-arvoisen kortin.\n";
+
             String[] o = {"Ok"};
-            JOptionPane.showOptionDialog(this, "Tähän säännöt", "Säännöt", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE, null, o, null);
+            JOptionPane.showOptionDialog(this, rules, "Säännöt", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE, null, o, null);
         }
 
     }
