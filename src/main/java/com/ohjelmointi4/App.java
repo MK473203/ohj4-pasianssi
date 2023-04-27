@@ -23,8 +23,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -157,7 +160,7 @@ public class App extends JFrame implements ActionListener {
 
      
         // pisteet
-        loadLeaderboard();
+      //  loadLeaderboard();
         leaderboardItems.add(new LeaderboardItem("Pelaaja1", 100, 30, LocalDateTime.now()));
         leaderboardItems.add(new LeaderboardItem("Pelaaja2", 300, 20, LocalDateTime.now()));
         leaderboardItems.add(new LeaderboardItem("Pelaaja3", 33, 33, LocalDateTime.now()));
@@ -262,6 +265,72 @@ public class App extends JFrame implements ActionListener {
 
         } else if (e.getSource() == leaderboardButton) {
             crd.show(cPane, "leaderboards");
+            loadLeaderboard();
+
+            int width = getWidth();
+            int height = getHeight();
+             
+            Collections.sort(leaderboardItems, new Comparator<LeaderboardItem>() {
+                @Override
+                public int compare(LeaderboardItem o1, LeaderboardItem o2) {
+                    return Integer.compare(o1.getGameSeconds(), o2.getGameSeconds());
+                }
+            });
+
+
+            StringBuilder sb = new StringBuilder("<html>");
+
+            for (LeaderboardItem leaderboardItem : leaderboardItems) {
+                sb.append(leaderboardItem.name);
+                sb.append("<br/>");
+            }
+            sb.append("</html>");
+
+            JLabel leaderboardGamer = new JLabel(sb.toString());
+
+            sb = new StringBuilder("<html>");
+
+            for (LeaderboardItem leaderboardItem : leaderboardItems) {
+                sb.append(leaderboardItem.gameSeconds);
+                sb.append("<br/>");
+            }
+            sb.append("</html>");
+
+            JLabel leaderboardTime = new JLabel(sb.toString());
+
+            sb = new StringBuilder("<html>");
+
+            for (LeaderboardItem leaderboardItem : leaderboardItems) {
+                sb.append(leaderboardItem.moves);
+                sb.append("<br/>");
+            }
+            sb.append("</html>");
+
+            JLabel leaderboardMoves = new JLabel(sb.toString());
+
+            sb = new StringBuilder("<html>");
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+            for (LeaderboardItem leaderboardItem : leaderboardItems) {
+                String dateText = leaderboardItem.dateTime.format(formatter);
+                sb.append(dateText);
+                sb.append("<br/>");
+            }
+            sb.append("</html>");
+
+            JLabel leaderboardDate = new JLabel(sb.toString());
+
+            leaderboardContainer.add(leaderboardGamer);
+            leaderboardContainer.add(leaderboardTime);
+            leaderboardContainer.add(leaderboardMoves);
+            leaderboardContainer.add(leaderboardDate);
+
+            leaderboardGamer.setBounds((int) (width*0.1), (int) (height*0.2), 100, 100 );
+            leaderboardTime.setBounds((int) (width*0.3), (int) (height*0.2), 100, 100 );
+            leaderboardMoves.setBounds((int) (width*0.5), (int) (height*0.2), 100, 100 );
+            leaderboardDate.setBounds((int) (width*0.65), (int) (height*0.2), 150, 100 );
+
             buttonSound.playSound();
 
         } else if (e.getSource() == settingsButton) {
@@ -449,6 +518,8 @@ public class App extends JFrame implements ActionListener {
             e.printStackTrace();
         }
     }
+
+    
 
 
     // main method

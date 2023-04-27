@@ -16,4 +16,9 @@ public class LeaderboardItem implements java.io.Serializable {
 		this.dateTime = dateTime;
 	}
 	
+	public int getGameSeconds() {
+		return this.gameSeconds;
+	}
+
+
 }
