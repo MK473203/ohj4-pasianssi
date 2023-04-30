@@ -383,7 +383,7 @@ public class App extends JFrame implements ActionListener {
         leaderboardGamerLabel.setBounds( (int) (width*0.1), (int) (height*0.1), (int) (width*0.125),(int)( getHeight()*0.1) );
         leaderboardTimeLabel.setBounds( (int) (width*0.3), (int) (height*0.1), (int) (width*0.125),(int) ( getHeight()*0.1) );
         leaderboardMovesLabel.setBounds( (int) (width*0.5), (int) (height*0.1), (int) (width*0.125),(int)( getHeight()*0.1) );
-        leaderboardDateLabel.setBounds( (int) (width*0.7), (int) (height*0.1), (int) (width*0.125),(int) ( getHeight()*0.1) );
+        leaderboardDateLabel.setBounds( (int) (width*0.7), (int) (height*0.1), (int) (width*0.2),(int) ( getHeight()*0.1) );
         leaderboardGamerLabel.setFont(font);
         leaderboardTimeLabel.setFont(font);
         leaderboardMovesLabel.setFont(font);
@@ -391,8 +391,8 @@ public class App extends JFrame implements ActionListener {
         
         leaderboardGamer.setBounds((int) (width*0.1), (int) (height*0.1), (int) (width*0.125), (int)( getHeight()*0.5) );
         leaderboardTime.setBounds((int) (width*0.3), (int) (height*0.1), (int) (width*0.125), (int)( getHeight()*0.5) );
-        leaderboardMoves.setBounds((int) (width*0.5), (int) (height*0.1), 100, (int)( getHeight()*0.5) );
-        leaderboardDate.setBounds((int) (width*0.65), (int) (height*0.1), 150, (int)( getHeight()*0.5) );
+        leaderboardMoves.setBounds((int) (width*0.5), (int) (height*0.1), (int) (width*0.125), (int)( getHeight()*0.5) );
+        leaderboardDate.setBounds((int) (width*0.65), (int) (height*0.1), (int) (width*0.2), (int)( getHeight()*0.5) );
 
         leaderboardGamer.setFont(font);
         leaderboardTime.setFont(font);
@@ -566,22 +566,11 @@ public class App extends JFrame implements ActionListener {
 
         for (LeaderboardItem leaderboardItem : leaderboardItems) {
             removeButtons[i] = new JButton(removeButtonIcon);
-            removeButtons[i].setBounds( (int) (width*0.80), (int) (height*0.2)+ i * 50, (int) ( width*0.03 ), (int) ( width*0.03 ) );
+            removeButtons[i].setBounds( (int) (width*0.90), (int) (height*0.25)+ i * (int) (height*0.066), (int) ( width*0.02 ), (int) ( width*0.02 ) );
             leaderboardContainer.add(removeButtons[i]);
             ImageIcon newImg = new ImageIcon( image.getScaledInstance( (int) (removeButtons[i].getWidth()* 0.95 ) , (int) ( removeButtons[i].getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
             removeButtons[i].setIcon(newImg);
-            removeButtons[i].addActionListener(new ActionListener() {
-                public void actionPerformed( ActionEvent e) {
-                    String[] o = {"Kyllä", "Ei"};
-                    int i = JOptionPane.showOptionDialog(cPane, "Haluatko varmasti poistaa tuloksen?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE, null, o, null);
-
-                    if (i == 0) {
-                        leaderboardItems.remove(i);
-                    }
-                }
-            });
-            
-            
+            removeButtons[i].addActionListener(new ActionListenerWithInteger(i));
             i++;
 
         }
@@ -592,6 +581,27 @@ public class App extends JFrame implements ActionListener {
         for (JButton jButton : removeButtons) {
             leaderboardContainer.remove(removeButtons[i]);
             i--;
+        }
+    }
+
+    public class ActionListenerWithInteger implements ActionListener {
+        private int number;
+
+        public ActionListenerWithInteger(int number) {
+            this.number = number;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String[] o = {"Kyllä", "Ei"};
+            int j = JOptionPane.showOptionDialog(cPane, "Haluatko varmasti poistaa tuloksen?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE, null, o, null);
+
+            if (j == 0) {
+                leaderboardItems.remove(this.number);
+                LeaderboardLabelTexts();
+                leaderboardContainer.remove(removeButtons[this.number]);
+                
+            }
         }
     }
 
