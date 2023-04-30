@@ -52,12 +52,19 @@ public class App extends JFrame implements ActionListener {
     JButton quitButton = new JButton("Poistu");
     // pisteet
     Container leaderboardContainer = new Container();
+    Container RemovebuttonContainer = new Container();
     JButton leaderboardBackButton = new JButton();
     List<LeaderboardItem> leaderboardItems = new ArrayList<LeaderboardItem>();
     JLabel leaderboardGamerLabel = new JLabel("Pelaaja");
+    JLabel leaderboardGamer = new JLabel();
     JLabel leaderboardTimeLabel = new JLabel("Aika");
+    JLabel leaderboardTime = new JLabel();
     JLabel leaderboardMovesLabel = new JLabel("Siirrot");
+    JLabel leaderboardMoves = new JLabel();
     JLabel leaderboardDateLabel = new JLabel("Pvm.");
+    JLabel leaderboardDate = new JLabel();
+    JButton[] removeButtons = null;
+    
     // asetukset
     Container settingsContainer = new Container();
     JButton settingsBackButton = new JButton();
@@ -121,6 +128,7 @@ public class App extends JFrame implements ActionListener {
     ImageIcon backButtonIcon = new ImageIcon(getClass().getResource("/nuoli.png"));
     ImageIcon restartGameButtonIcon = new ImageIcon(getClass().getResource("/uusiPeli.png"));
     ImageIcon gameInstructionIcon = new ImageIcon( getClass().getResource("/ohjeet.png") );
+    ImageIcon removeButtonIcon = new ImageIcon ( getClass().getResource("/vinoristiP.png") );
 
     JLabel restartGamLabel = new JLabel("Uusi peli");
     JLabel gameInstructionLabel = new JLabel("Ohjeet");
@@ -157,14 +165,15 @@ public class App extends JFrame implements ActionListener {
         timeText.setFont(new Font("Serif", Font.PLAIN, 24));
         timeText.setHorizontalAlignment(SwingConstants.CENTER);
         timeText.setVerticalAlignment(SwingConstants.CENTER);
-
-     
+  
         // pisteet
       //  loadLeaderboard();
         leaderboardItems.add(new LeaderboardItem("Pelaaja1", 100, 30, LocalDateTime.now()));
         leaderboardItems.add(new LeaderboardItem("Pelaaja2", 300, 20, LocalDateTime.now()));
         leaderboardItems.add(new LeaderboardItem("Pelaaja3", 33, 33, LocalDateTime.now()));
         saveLeaderboard();
+
+        
 
         // Adding listeners to the buttons
         newGameButton.addActionListener(this);
@@ -228,6 +237,13 @@ public class App extends JFrame implements ActionListener {
         leaderboardContainer.add(leaderboardTimeLabel);
         leaderboardContainer.add(leaderboardMovesLabel);
         leaderboardContainer.add(leaderboardDateLabel);
+        
+        leaderboardContainer.add(leaderboardGamer);
+        leaderboardContainer.add(leaderboardTime);
+        leaderboardContainer.add(leaderboardMoves);
+        leaderboardContainer.add(leaderboardDate);
+
+        leaderboardContainer.add(RemovebuttonContainer);
 
         settingsContainer.add(settingsBackButton);
         settingsContainer.add(resolutionComboBox);
@@ -266,72 +282,13 @@ public class App extends JFrame implements ActionListener {
         } else if (e.getSource() == leaderboardButton) {
             crd.show(cPane, "leaderboards");
             loadLeaderboard();
+            sortLeaderboardByTime();
 
-            int width = getWidth();
-            int height = getHeight();
-             
-            Collections.sort(leaderboardItems, new Comparator<LeaderboardItem>() {
-                @Override
-                public int compare(LeaderboardItem o1, LeaderboardItem o2) {
-                    return Integer.compare(o1.getGameSeconds(), o2.getGameSeconds());
-                }
-            });
-
-
-            StringBuilder sb = new StringBuilder("<html>");
-
-            for (LeaderboardItem leaderboardItem : leaderboardItems) {
-                sb.append(leaderboardItem.name);
-                sb.append("<br/>");
-            }
-            sb.append("</html>");
-
-            JLabel leaderboardGamer = new JLabel(sb.toString());
-
-            sb = new StringBuilder("<html>");
-
-            for (LeaderboardItem leaderboardItem : leaderboardItems) {
-                sb.append(leaderboardItem.gameSeconds);
-                sb.append("<br/>");
-            }
-            sb.append("</html>");
-
-            JLabel leaderboardTime = new JLabel(sb.toString());
-
-            sb = new StringBuilder("<html>");
-
-            for (LeaderboardItem leaderboardItem : leaderboardItems) {
-                sb.append(leaderboardItem.moves);
-                sb.append("<br/>");
-            }
-            sb.append("</html>");
-
-            JLabel leaderboardMoves = new JLabel(sb.toString());
-
-            sb = new StringBuilder("<html>");
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-
-            for (LeaderboardItem leaderboardItem : leaderboardItems) {
-                String dateText = leaderboardItem.dateTime.format(formatter);
-                sb.append(dateText);
-                sb.append("<br/>");
-            }
-            sb.append("</html>");
-
-            JLabel leaderboardDate = new JLabel(sb.toString());
-
-            leaderboardContainer.add(leaderboardGamer);
-            leaderboardContainer.add(leaderboardTime);
-            leaderboardContainer.add(leaderboardMoves);
-            leaderboardContainer.add(leaderboardDate);
-
-            leaderboardGamer.setBounds((int) (width*0.1), (int) (height*0.2), 100, 100 );
-            leaderboardTime.setBounds((int) (width*0.3), (int) (height*0.2), 100, 100 );
-            leaderboardMoves.setBounds((int) (width*0.5), (int) (height*0.2), 100, 100 );
-            leaderboardDate.setBounds((int) (width*0.65), (int) (height*0.2), 150, 100 );
-
+            LeaderboardLabelTexts();
+            createRemoveButtons();
+            
             buttonSound.playSound();
+
 
         } else if (e.getSource() == settingsButton) {
             crd.show(cPane, "settings");
@@ -340,12 +297,18 @@ public class App extends JFrame implements ActionListener {
         } else if (e.getSource() == quitButton) {
             System.exit(0);
 
-        } else if (e.getSource() == settingsBackButton || e.getSource() == leaderboardBackButton) {
+        } else if (e.getSource() == settingsBackButton) {
             
             crd.show(cPane, "main menu");
             buttonSound.playSound();
 
-        } else if (e.getSource() == chooseFileButton) {
+        } else if (e.getSource() == leaderboardBackButton) {
+            deleteRemoveButtons();
+            crd.show(cPane, "main menu");
+            buttonSound.playSound();
+        }
+        
+        else if (e.getSource() == chooseFileButton) {
             buttonSound.playSound();
             int state = cardFileChooser.showOpenDialog(this);
 
@@ -406,20 +369,35 @@ public class App extends JFrame implements ActionListener {
 
         Rectangle backButtonRectangle = new Rectangle(25, height - 75, (int) (width * 0.15), 50);
 
+        Font font = new Font("Calibri", Font.BOLD, width/50);
+
         // menu
         newGameButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.85), (width / 2), height / 15);
         leaderboardButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.65), (width / 2), height / 15);
         settingsButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.45), (width / 2), height / 15);
         quitButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.25), (width / 2), height / 15);
 
+
         // pisteet
         leaderboardBackButton.setBounds(backButtonRectangle);
-        leaderboardGamerLabel.setBounds( (int) (width*0.1), (int) (height*0.1), 100, 30);
-        leaderboardTimeLabel.setBounds( (int) (width*0.3), (int) (height*0.1), 100, 30);
-        leaderboardMovesLabel.setBounds( (int) (width*0.5), (int) (height*0.1), 100, 30);
-        leaderboardDateLabel.setBounds( (int) (width*0.7), (int) (height*0.1), 100, 30);
+        leaderboardGamerLabel.setBounds( (int) (width*0.1), (int) (height*0.1), (int) (width*0.125),(int)( getHeight()*0.1) );
+        leaderboardTimeLabel.setBounds( (int) (width*0.3), (int) (height*0.1), (int) (width*0.125),(int) ( getHeight()*0.1) );
+        leaderboardMovesLabel.setBounds( (int) (width*0.5), (int) (height*0.1), (int) (width*0.125),(int)( getHeight()*0.1) );
+        leaderboardDateLabel.setBounds( (int) (width*0.7), (int) (height*0.1), (int) (width*0.125),(int) ( getHeight()*0.1) );
+        leaderboardGamerLabel.setFont(font);
+        leaderboardTimeLabel.setFont(font);
+        leaderboardMovesLabel.setFont(font);
+        leaderboardDateLabel.setFont(font);
         
+        leaderboardGamer.setBounds((int) (width*0.1), (int) (height*0.1), (int) (width*0.125), (int)( getHeight()*0.5) );
+        leaderboardTime.setBounds((int) (width*0.3), (int) (height*0.1), (int) (width*0.125), (int)( getHeight()*0.5) );
+        leaderboardMoves.setBounds((int) (width*0.5), (int) (height*0.1), 100, (int)( getHeight()*0.5) );
+        leaderboardDate.setBounds((int) (width*0.65), (int) (height*0.1), 150, (int)( getHeight()*0.5) );
 
+        leaderboardGamer.setFont(font);
+        leaderboardTime.setFont(font);
+        leaderboardMoves.setFont(font);
+        leaderboardDate.setFont(font);
         // asetukset
         settingsBackButton.setBounds(backButtonRectangle);
         resolutionComboBox.setBounds((int) (width * 0.625), (int) (height * 0.17), (int) (width * 0.15), (int) (height * 0.0625));
@@ -519,8 +497,103 @@ public class App extends JFrame implements ActionListener {
         }
     }
 
-    
+    public void sortLeaderboardByTime() {
+        Collections.sort(leaderboardItems, new Comparator<LeaderboardItem>() {
+            @Override
+            public int compare(LeaderboardItem o1, LeaderboardItem o2) {
+                return Integer.compare(o1.getGameSeconds(), o2.getGameSeconds());
+            }
+        });
+    }
 
+    public void LeaderboardLabelTexts() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        StringBuilder sb;
+
+        sb = new StringBuilder("<html>");
+
+        for (LeaderboardItem leaderboardItem : leaderboardItems) {
+            sb.append(leaderboardItem.name);
+            sb.append("<br/>");
+            sb.append("<br/>");
+            }
+            sb.append("</html>");
+        leaderboardGamer.setText(sb.toString());
+
+        sb = new StringBuilder("<html>");
+
+        for (LeaderboardItem leaderboardItem : leaderboardItems) {
+            sb.append(leaderboardItem.gameSeconds);
+            sb.append("<br/>");
+            sb.append("<br/>");
+            }
+            sb.append("</html>");
+        leaderboardTime.setText(sb.toString());
+
+        sb = new StringBuilder("<html>");
+
+        for (LeaderboardItem leaderboardItem : leaderboardItems) {
+            sb.append(leaderboardItem.moves);
+            sb.append("<br/>");
+            sb.append("<br/>");
+            }
+            sb.append("</html>");
+        leaderboardMoves.setText(sb.toString());
+
+        sb = new StringBuilder("<html>");
+
+       for (LeaderboardItem leaderboardItem : leaderboardItems) {
+            String dateText = leaderboardItem.dateTime.format(formatter);
+            sb.append(dateText);
+            sb.append("<br/>");
+            sb.append("<br/>");
+            }
+            sb.append("</html>");
+        leaderboardDate.setText(sb.toString());
+
+        
+    }
+
+    public void createRemoveButtons() {
+
+        Image image = removeButtonIcon.getImage();
+        int i = 0;
+        int width = getWidth();
+        int height = getHeight();
+        removeButtons = new JButton[leaderboardItems.size()];
+
+        for (LeaderboardItem leaderboardItem : leaderboardItems) {
+            removeButtons[i] = new JButton(removeButtonIcon);
+            removeButtons[i].setBounds( (int) (width*0.80), (int) (height*0.2)+ i * 50, (int) ( width*0.03 ), (int) ( width*0.03 ) );
+            leaderboardContainer.add(removeButtons[i]);
+            ImageIcon newImg = new ImageIcon( image.getScaledInstance( (int) (removeButtons[i].getWidth()* 0.95 ) , (int) ( removeButtons[i].getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
+            removeButtons[i].setIcon(newImg);
+            removeButtons[i].addActionListener(new ActionListener() {
+                public void actionPerformed( ActionEvent e) {
+                    String[] o = {"Kyllä", "Ei"};
+                    int i = JOptionPane.showOptionDialog(cPane, "Haluatko varmasti poistaa tuloksen?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE, null, o, null);
+
+                    if (i == 0) {
+                        leaderboardItems.remove(i);
+                    }
+                }
+            });
+            
+            
+            i++;
+
+        }
+    }
+
+    public void deleteRemoveButtons() {
+        int i = removeButtons.length-1;
+        for (JButton jButton : removeButtons) {
+            leaderboardContainer.remove(removeButtons[i]);
+            i--;
+        }
+    }
 
     // main method
     public static void main(String argvs[]) {
