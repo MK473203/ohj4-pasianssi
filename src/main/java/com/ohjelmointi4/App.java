@@ -119,7 +119,7 @@ public class App extends JFrame implements ActionListener {
     JLabel scoreText = new JLabel("Siirrot: 0");
     JLabel timeText = new JLabel("Aika: 0:00");
     GamePanel gamePanel;
-    JButton gameInstructionsButton = new JButton("?");
+    JButton gameInstructionsButton = new JButton();
     JButton gameRestartGameButton = new JButton();
 
     Sound buttonSound;
@@ -130,7 +130,7 @@ public class App extends JFrame implements ActionListener {
     ImageIcon gameInstructionIcon = new ImageIcon(getClass().getResource("/ohjeet.png"));
     ImageIcon removeButtonIcon = new ImageIcon(getClass().getResource("/vinoristiP.png"));
 
-    JLabel restartGamLabel = new JLabel("Uusi peli");
+    JLabel restartGameLabel = new JLabel("Uusi peli");
     JLabel gameInstructionLabel = new JLabel("Ohjeet");
 
     // constructor of the class
@@ -159,15 +159,13 @@ public class App extends JFrame implements ActionListener {
 
         // peli
         gamePanel = new GamePanel();
-        scoreText.setFont(new Font("Serif", Font.PLAIN, 24));
         scoreText.setHorizontalAlignment(SwingConstants.CENTER);
         scoreText.setVerticalAlignment(SwingConstants.CENTER);
-        timeText.setFont(new Font("Serif", Font.PLAIN, 24));
         timeText.setHorizontalAlignment(SwingConstants.CENTER);
         timeText.setVerticalAlignment(SwingConstants.CENTER);
 
         // pisteet
-        //loadLeaderboard();
+        // loadLeaderboard();
         leaderboardItems.add(new LeaderboardItem("Pelaaja1", 100, 30, LocalDateTime.now()));
         leaderboardItems.add(new LeaderboardItem("Pelaaja2", 300, 20, LocalDateTime.now()));
         leaderboardItems.add(new LeaderboardItem("Pelaaja3", 33, 33, LocalDateTime.now()));
@@ -266,7 +264,7 @@ public class App extends JFrame implements ActionListener {
         gameContainer.add(gameRestartGameButton);
         gameContainer.add(gameBackLabel);
         gameContainer.add(gameInstructionLabel);
-        gameContainer.add(restartGamLabel);
+        gameContainer.add(restartGameLabel);
 
         cPane.add("main menu", mainMenuContainer);
         cPane.add("leaderboards", leaderboardContainer);
@@ -370,7 +368,7 @@ public class App extends JFrame implements ActionListener {
         int width = cPane.getWidth();
         int height = cPane.getHeight();
 
-        Rectangle backButtonRectangle = new Rectangle(25, height - 75, (int) (width * 0.15), 50);
+        Rectangle backButtonRectangle = new Rectangle(25, height - 75, 150, 50);
 
         Font font = new Font("Calibri", Font.BOLD, width / 50);
 
@@ -380,6 +378,11 @@ public class App extends JFrame implements ActionListener {
         settingsButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.45), (width / 2), height / 15);
         quitButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.25), (width / 2), height / 15);
 
+        newGameButton.setFont(font);
+        leaderboardButton.setFont(font);
+        settingsButton.setFont(font);
+        quitButton.setFont(font);
+
 
         // pisteet
         leaderboardBackButton.setBounds(backButtonRectangle);
@@ -387,6 +390,7 @@ public class App extends JFrame implements ActionListener {
         leaderboardTimeLabel.setBounds((int) (width * 0.3), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.1));
         leaderboardMovesLabel.setBounds((int) (width * 0.5), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.1));
         leaderboardDateLabel.setBounds((int) (width * 0.7), (int) (height * 0.1), (int) (width * 0.2), (int) (getHeight() * 0.1));
+
         leaderboardGamerLabel.setFont(font);
         leaderboardTimeLabel.setFont(font);
         leaderboardMovesLabel.setFont(font);
@@ -401,6 +405,7 @@ public class App extends JFrame implements ActionListener {
         leaderboardTime.setFont(font);
         leaderboardMoves.setFont(font);
         leaderboardDate.setFont(font);
+
         // asetukset
         settingsBackButton.setBounds(backButtonRectangle);
         resolutionComboBox.setBounds((int) (width * 0.625), (int) (height * 0.17), (int) (width * 0.15), (int) (height * 0.0625));
@@ -408,9 +413,20 @@ public class App extends JFrame implements ActionListener {
         chooseFileButton.setBounds((int) (width * 0.625), (int) (height * 0.52), (int) (width * 0.15), (int) (height * 0.0625));
         defaultCardsButton.setBounds((int) (width * 0.625), (int) (height * 0.70), (int) (width * 0.15), (int) (height * 0.0625));
 
+        settingsBackButton.setFont(font);
+        resolutionComboBox.setFont(font);
+        volumeSlider.setFont(font);
+        chooseFileButton.setFont(font);
+        defaultCardsButton.setFont(font);
+
+
         resolutionLabel.setBounds((int) (width * 0.325), (int) (height * 0.17), (int) (width * 0.15), (int) (height * 0.0625));
         volumeLabel.setBounds((int) (width * 0.325), (int) (height * 0.35), (int) (width * 0.15), (int) (height * 0.0625));
         cardsLabel.setBounds((int) (width * 0.325), (int) (height * 0.52), (int) (width * 0.15), (int) (height * 0.0625));
+
+        resolutionLabel.setFont(font);
+        volumeLabel.setFont(font);
+        cardsLabel.setFont(font);
 
         // peli
         gameBackButton.setBounds(backButtonRectangle);
@@ -419,6 +435,17 @@ public class App extends JFrame implements ActionListener {
         gamePanel.setBounds(0, 0, (int) (width * 0.875), height - 100);
         gameInstructionsButton.setBounds((int) (width * 0.88), (int) (height * 0.15), (int) (width * 0.10), (int) (width * 0.10));
         gameRestartGameButton.setBounds((int) (width * 0.88), (int) (height * 0.35), (int) (width * 0.10), (int) (width * 0.10));
+        gameInstructionLabel.setBounds((int) (width * 0.88), (int) (height * 0.25), (int) (width * 0.10), (int) (width * 0.10));
+        restartGameLabel.setBounds((int) (width * 0.88), (int) (height * 0.45), (int) (width * 0.10), (int) (width * 0.10));
+
+        gameBackButton.setFont(font);
+        scoreText.setFont(font);
+        timeText.setFont(font);
+        gamePanel.setFont(font);
+        gameInstructionsButton.setFont(font);
+        gameRestartGameButton.setFont(font);
+        gameInstructionLabel.setFont(font);
+        restartGameLabel.setFont(font);
 
         // takaisin nappien ikoni
         Image image = backButtonIcon.getImage();
@@ -427,23 +454,28 @@ public class App extends JFrame implements ActionListener {
         leaderboardBackButton.setIcon(newImg);
         settingsBackButton.setIcon(newImg);
 
+        gameBackButton.setFont(font);
+        leaderboardBackButton.setFont(font);
+        settingsBackButton.setFont(font);
+
         // takaisin nappien teksti
-        settingsBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5), 100, 100);
-        gameBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5), 100, 100);
-        leaderboardsBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5), 100, 100);
+        settingsBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 20, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5), 200, 100);
+        gameBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 20, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5), 200, 100);
+        leaderboardsBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 20, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5), 200, 100);
+
+        settingsBackLabel.setFont(font);
+        gameBackLabel.setFont(font);
+        leaderboardsBackLabel.setFont(font);
 
         // pelinäkymän nappien ikonit
         image = restartGameButtonIcon.getImage();
         newImg = new ImageIcon(image.getScaledInstance((int) (gameRestartGameButton.getWidth() * 0.95), (int) (gameRestartGameButton.getHeight() * 0.9), java.awt.Image.SCALE_SMOOTH));
         gameRestartGameButton.setIcon(newImg);
 
+
         image = gameInstructionIcon.getImage();
         newImg = new ImageIcon(image.getScaledInstance((int) (gameInstructionsButton.getWidth() * 0.95), (int) (gameInstructionsButton.getHeight() * 0.9), java.awt.Image.SCALE_SMOOTH));
         gameInstructionsButton.setIcon(newImg);
-
-        // peli ohjeet ja uusi peli jlabel
-        gameInstructionLabel.setBounds((int) (width * 0.88 + gameInstructionsButton.getWidth() * 0.25), (int) (height * 0.25), (int) (width * 0.10), (int) (width * 0.10));
-        restartGamLabel.setBounds((int) (width * 0.88 + gameRestartGameButton.getWidth() * 0.25), (int) (height * 0.45), (int) (width * 0.10), (int) (width * 0.10));
 
 
     }
