@@ -583,6 +583,7 @@ public class App extends JFrame implements ActionListener {
         }
     }
 
+    //Poista nappien kuuntelija
     public class ActionListenerWithInteger implements ActionListener {
         private int number;
 
