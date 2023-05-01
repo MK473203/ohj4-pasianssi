@@ -64,14 +64,14 @@ public class App extends JFrame implements ActionListener {
     JLabel leaderboardDateLabel = new JLabel("Pvm.");
     JLabel leaderboardDate = new JLabel();
     JButton[] removeButtons = null;
-    
+
     // asetukset
     Container settingsContainer = new Container();
     JButton settingsBackButton = new JButton();
     String[] resolutions = {"800x600", "1200x800", "1920x1080"};
     final JComboBox<String> resolutionComboBox = new JComboBox<String>(resolutions);
     JSlider volumeSlider = new JSlider(JSlider.HORIZONTAL, -80, 30, -25);
-    
+
     JButton chooseFileButton = new JButton("Valitse tiedosto...");
     JFileChooser cardFileChooser = new JFileChooser();
     FileFilter imageFileFilter = new FileFilter() {
@@ -127,8 +127,8 @@ public class App extends JFrame implements ActionListener {
     ImageIcon icon = new ImageIcon(getClass().getResource("/nimetön.png"));
     ImageIcon backButtonIcon = new ImageIcon(getClass().getResource("/nuoli.png"));
     ImageIcon restartGameButtonIcon = new ImageIcon(getClass().getResource("/uusiPeli.png"));
-    ImageIcon gameInstructionIcon = new ImageIcon( getClass().getResource("/ohjeet.png") );
-    ImageIcon removeButtonIcon = new ImageIcon ( getClass().getResource("/vinoristiP.png") );
+    ImageIcon gameInstructionIcon = new ImageIcon(getClass().getResource("/ohjeet.png"));
+    ImageIcon removeButtonIcon = new ImageIcon(getClass().getResource("/vinoristiP.png"));
 
     JLabel restartGamLabel = new JLabel("Uusi peli");
     JLabel gameInstructionLabel = new JLabel("Ohjeet");
@@ -165,15 +165,11 @@ public class App extends JFrame implements ActionListener {
         timeText.setFont(new Font("Serif", Font.PLAIN, 24));
         timeText.setHorizontalAlignment(SwingConstants.CENTER);
         timeText.setVerticalAlignment(SwingConstants.CENTER);
-  
-        // pisteet
-      //  loadLeaderboard();
-        leaderboardItems.add(new LeaderboardItem("Pelaaja1", 100, 30, LocalDateTime.now()));
-        leaderboardItems.add(new LeaderboardItem("Pelaaja2", 300, 20, LocalDateTime.now()));
-        leaderboardItems.add(new LeaderboardItem("Pelaaja3", 33, 33, LocalDateTime.now()));
-        saveLeaderboard();
 
-        
+        // pisteet
+        loadLeaderboard();
+
+
 
         // Adding listeners to the buttons
         newGameButton.addActionListener(this);
@@ -237,7 +233,7 @@ public class App extends JFrame implements ActionListener {
         leaderboardContainer.add(leaderboardTimeLabel);
         leaderboardContainer.add(leaderboardMovesLabel);
         leaderboardContainer.add(leaderboardDateLabel);
-        
+
         leaderboardContainer.add(leaderboardGamer);
         leaderboardContainer.add(leaderboardTime);
         leaderboardContainer.add(leaderboardMoves);
@@ -286,7 +282,7 @@ public class App extends JFrame implements ActionListener {
 
             LeaderboardLabelTexts();
             createRemoveButtons();
-            
+
             buttonSound.playSound();
 
 
@@ -298,7 +294,7 @@ public class App extends JFrame implements ActionListener {
             System.exit(0);
 
         } else if (e.getSource() == settingsBackButton) {
-            
+
             crd.show(cPane, "main menu");
             buttonSound.playSound();
 
@@ -307,7 +303,7 @@ public class App extends JFrame implements ActionListener {
             crd.show(cPane, "main menu");
             buttonSound.playSound();
         }
-        
+
         else if (e.getSource() == chooseFileButton) {
             buttonSound.playSound();
             int state = cardFileChooser.showOpenDialog(this);
@@ -327,34 +323,34 @@ public class App extends JFrame implements ActionListener {
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
-        } else if (e.getSource() == gameBackButton ) {
+        } else if (e.getSource() == gameBackButton) {
 
             String[] o = {"Ok", "Peruuta"};
-            int i = JOptionPane.showOptionDialog(this, "Tämä lopettaa pelin", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE, null, o, null);
+            int i = JOptionPane.showOptionDialog(this, "Tämä lopettaa pelin", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, o, null);
 
             if (i == 0) {
-            gamePanel.stop();
-            crd.show(cPane, "main menu");
-            buttonSound.playSound();
+                gamePanel.stop();
+                crd.show(cPane, "main menu");
+                buttonSound.playSound();
             }
 
         } else if (e.getSource() == gameRestartGameButton) {
             String[] o = {"Kyllä", "Ei"};
-            int i = JOptionPane.showOptionDialog(this, "Haluatko varmasti aloittaa uuden pelin?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE, null, o, null);
+            int i = JOptionPane.showOptionDialog(this, "Haluatko varmasti aloittaa uuden pelin?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, o, null);
 
             if (i == 0) {
-            gamePanel.start();
-            buttonSound.playSound();
+                gamePanel.start();
+                buttonSound.playSound();
             }
         } else if (e.getSource() == gameInstructionsButton) {
 
-            String rules = "Klondike pasianssin tarkoituksena on täyttää tyhjät peruspakat pelin oikeassa yläkulmassa.\n" + 
-            "Yhteen peruspakkaan voi laittaa vain yhden maan kortteja.\n" +           
-            "Tyhjien pakkojen täyttö aloitetaan pienimmästä kortista eli ässästä.\n Seuraavaksi tyhjään pakkaan laitetaan seuraava kortti arvojärjestyksessä.\n" +
-            "Pelin voittaa, kun kaikki tyhjät peruspakat ovat täytetty ässästä kuninkaaseen asti.\n" +
-            "Vasemmassa yläreunassa on käsipakka, mistä voi ottaa kortteja.\n" +
-            "Pöydällä on seitsemän pinoa. Pinojen päällimmäisen kortin alle voi \n lisätä eri värisen maan kortin, jonka arvo on yhtä pienempi.\n" +
-            "Tyhjään pinoon voi asettaa Kuningas-arvoisen kortin.\n";
+            String rules = "Klondike pasianssin tarkoituksena on täyttää tyhjät peruspakat pelin oikeassa yläkulmassa.\n" +
+                    "Yhteen peruspakkaan voi laittaa vain yhden maan kortteja.\n" +
+                    "Tyhjien pakkojen täyttö aloitetaan pienimmästä kortista eli ässästä.\n Seuraavaksi tyhjään pakkaan laitetaan seuraava kortti arvojärjestyksessä.\n" +
+                    "Pelin voittaa, kun kaikki tyhjät peruspakat ovat täytetty ässästä kuninkaaseen asti.\n" +
+                    "Vasemmassa yläreunassa on käsipakka, mistä voi ottaa kortteja.\n" +
+                    "Pöydällä on seitsemän pinoa. Pinojen päällimmäisen kortin alle voi \n lisätä eri värisen maan kortin, jonka arvo on yhtä pienempi.\n" +
+                    "Tyhjään pinoon voi asettaa Kuningas-arvoisen kortin.\n";
 
             String[] o = {"Ok"};
             JOptionPane.showOptionDialog(this, rules, "Säännöt", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE, null, o, null);
@@ -369,7 +365,7 @@ public class App extends JFrame implements ActionListener {
 
         Rectangle backButtonRectangle = new Rectangle(25, height - 75, (int) (width * 0.15), 50);
 
-        Font font = new Font("Calibri", Font.BOLD, width/50);
+        Font font = new Font("Calibri", Font.BOLD, width / 50);
 
         // menu
         newGameButton.setBounds((width / 2) - (width / 4), height - (int) (height * 0.85), (width / 2), height / 15);
@@ -380,19 +376,19 @@ public class App extends JFrame implements ActionListener {
 
         // pisteet
         leaderboardBackButton.setBounds(backButtonRectangle);
-        leaderboardGamerLabel.setBounds( (int) (width*0.1), (int) (height*0.1), (int) (width*0.125),(int)( getHeight()*0.1) );
-        leaderboardTimeLabel.setBounds( (int) (width*0.3), (int) (height*0.1), (int) (width*0.125),(int) ( getHeight()*0.1) );
-        leaderboardMovesLabel.setBounds( (int) (width*0.5), (int) (height*0.1), (int) (width*0.125),(int)( getHeight()*0.1) );
-        leaderboardDateLabel.setBounds( (int) (width*0.7), (int) (height*0.1), (int) (width*0.2),(int) ( getHeight()*0.1) );
+        leaderboardGamerLabel.setBounds((int) (width * 0.1), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.1));
+        leaderboardTimeLabel.setBounds((int) (width * 0.3), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.1));
+        leaderboardMovesLabel.setBounds((int) (width * 0.5), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.1));
+        leaderboardDateLabel.setBounds((int) (width * 0.7), (int) (height * 0.1), (int) (width * 0.2), (int) (getHeight() * 0.1));
         leaderboardGamerLabel.setFont(font);
         leaderboardTimeLabel.setFont(font);
         leaderboardMovesLabel.setFont(font);
         leaderboardDateLabel.setFont(font);
-        
-        leaderboardGamer.setBounds((int) (width*0.1), (int) (height*0.1), (int) (width*0.125), (int)( getHeight()*0.5) );
-        leaderboardTime.setBounds((int) (width*0.3), (int) (height*0.1), (int) (width*0.125), (int)( getHeight()*0.5) );
-        leaderboardMoves.setBounds((int) (width*0.5), (int) (height*0.1), (int) (width*0.125), (int)( getHeight()*0.5) );
-        leaderboardDate.setBounds((int) (width*0.65), (int) (height*0.1), (int) (width*0.2), (int)( getHeight()*0.5) );
+
+        leaderboardGamer.setBounds((int) (width * 0.1), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.5));
+        leaderboardTime.setBounds((int) (width * 0.3), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.5));
+        leaderboardMoves.setBounds((int) (width * 0.5), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.5));
+        leaderboardDate.setBounds((int) (width * 0.65), (int) (height * 0.1), (int) (width * 0.2), (int) (getHeight() * 0.5));
 
         leaderboardGamer.setFont(font);
         leaderboardTime.setFont(font);
@@ -414,33 +410,33 @@ public class App extends JFrame implements ActionListener {
         scoreText.setBounds(4 * width / 5 - (int) (width * 0.15), height - 100, (int) (width * 0.3), 100);
         timeText.setBounds(width / 2 - (int) (width * 0.15), height - 100, (int) (width * 0.3), 100);
         gamePanel.setBounds(0, 0, (int) (width * 0.875), height - 100);
-        gameInstructionsButton.setBounds( (int) (width * 0.88), (int) (height * 0.15), (int) (width * 0.10), (int) (width * 0.10) );
-        gameRestartGameButton.setBounds( (int) (width * 0.88), (int) (height * 0.35), (int) (width * 0.10), (int) (width * 0.10) );
+        gameInstructionsButton.setBounds((int) (width * 0.88), (int) (height * 0.15), (int) (width * 0.10), (int) (width * 0.10));
+        gameRestartGameButton.setBounds((int) (width * 0.88), (int) (height * 0.35), (int) (width * 0.10), (int) (width * 0.10));
 
-        //takaisin nappien ikoni
+        // takaisin nappien ikoni
         Image image = backButtonIcon.getImage();
-        ImageIcon newImg = new ImageIcon( image.getScaledInstance( (int) (gameBackButton.getWidth()* 0.95 ) , (int) ( gameBackButton.getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
-        gameBackButton.setIcon (newImg) ;
+        ImageIcon newImg = new ImageIcon(image.getScaledInstance((int) (gameBackButton.getWidth() * 0.95), (int) (gameBackButton.getHeight() * 0.9), java.awt.Image.SCALE_SMOOTH));
+        gameBackButton.setIcon(newImg);
         leaderboardBackButton.setIcon(newImg);
         settingsBackButton.setIcon(newImg);
 
-        //takaisin nappien teksti
-        settingsBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5 ) , 100, 100);
-        gameBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5 ) , 100, 100);
-        leaderboardsBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5 ) , 100, 100);
+        // takaisin nappien teksti
+        settingsBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5), 100, 100);
+        gameBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5), 100, 100);
+        leaderboardsBackLabel.setBounds(gameBackButton.getX() + backButtonRectangle.width + 30, backButtonRectangle.y - (int) (backButtonRectangle.height * 0.5), 100, 100);
 
-       //pelinäkymän nappien ikonit
-       image = restartGameButtonIcon.getImage();
-       newImg = new ImageIcon( image.getScaledInstance( (int) (gameRestartGameButton.getWidth()* 0.95 ) , (int) ( gameRestartGameButton.getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
-       gameRestartGameButton.setIcon(newImg);
+        // pelinäkymän nappien ikonit
+        image = restartGameButtonIcon.getImage();
+        newImg = new ImageIcon(image.getScaledInstance((int) (gameRestartGameButton.getWidth() * 0.95), (int) (gameRestartGameButton.getHeight() * 0.9), java.awt.Image.SCALE_SMOOTH));
+        gameRestartGameButton.setIcon(newImg);
 
-       image = gameInstructionIcon.getImage();
-       newImg = new ImageIcon( image.getScaledInstance( (int) (gameInstructionsButton.getWidth()* 0.95 ) , (int) ( gameInstructionsButton.getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
-       gameInstructionsButton.setIcon(newImg);
+        image = gameInstructionIcon.getImage();
+        newImg = new ImageIcon(image.getScaledInstance((int) (gameInstructionsButton.getWidth() * 0.95), (int) (gameInstructionsButton.getHeight() * 0.9), java.awt.Image.SCALE_SMOOTH));
+        gameInstructionsButton.setIcon(newImg);
 
-        //peli ohjeet ja uusi peli jlabel
-        gameInstructionLabel.setBounds( (int) (width * 0.88 + gameInstructionsButton.getWidth()*0.25 ), (int) (height * 0.25), (int) (width * 0.10), (int) (width * 0.10)  );
-        restartGamLabel.setBounds( (int) (width * 0.88 + gameRestartGameButton.getWidth()*0.25 ), (int) (height * 0.45), (int) (width * 0.10), (int) (width * 0.10) );
+        // peli ohjeet ja uusi peli jlabel
+        gameInstructionLabel.setBounds((int) (width * 0.88 + gameInstructionsButton.getWidth() * 0.25), (int) (height * 0.25), (int) (width * 0.10), (int) (width * 0.10));
+        restartGamLabel.setBounds((int) (width * 0.88 + gameRestartGameButton.getWidth() * 0.25), (int) (height * 0.45), (int) (width * 0.10), (int) (width * 0.10));
 
 
     }
@@ -466,7 +462,7 @@ public class App extends JFrame implements ActionListener {
         gameInstructionsButton.setToolTipText("Pelin ohjeet");
         gameRestartGameButton.setToolTipText("Aloittaa uuden pelin. Vanha peli menetetään");
 
-        
+
     }
 
     public void updateGameTexts() {
@@ -485,7 +481,7 @@ public class App extends JFrame implements ActionListener {
             e.printStackTrace();
         }
     }
-    
+
     public void saveLeaderboard() {
         try {
             FileOutputStream fos = new FileOutputStream("pisteet.data");
@@ -518,8 +514,8 @@ public class App extends JFrame implements ActionListener {
             sb.append(leaderboardItem.name);
             sb.append("<br/>");
             sb.append("<br/>");
-            }
-            sb.append("</html>");
+        }
+        sb.append("</html>");
         leaderboardGamer.setText(sb.toString());
 
         sb = new StringBuilder("<html>");
@@ -528,8 +524,8 @@ public class App extends JFrame implements ActionListener {
             sb.append(leaderboardItem.gameSeconds);
             sb.append("<br/>");
             sb.append("<br/>");
-            }
-            sb.append("</html>");
+        }
+        sb.append("</html>");
         leaderboardTime.setText(sb.toString());
 
         sb = new StringBuilder("<html>");
@@ -538,22 +534,25 @@ public class App extends JFrame implements ActionListener {
             sb.append(leaderboardItem.moves);
             sb.append("<br/>");
             sb.append("<br/>");
-            }
-            sb.append("</html>");
+        }
+        sb.append("</html>");
         leaderboardMoves.setText(sb.toString());
 
         sb = new StringBuilder("<html>");
 
-       for (LeaderboardItem leaderboardItem : leaderboardItems) {
+        for (LeaderboardItem leaderboardItem : leaderboardItems) {
             String dateText = leaderboardItem.dateTime.format(formatter);
             sb.append(dateText);
             sb.append("<br/>");
             sb.append("<br/>");
-            }
-            sb.append("</html>");
+        }
+        sb.append("</html>");
         leaderboardDate.setText(sb.toString());
 
-        
+        int width = cPane.getWidth();
+        int height = cPane.getHeight();
+
+
     }
 
     public void createRemoveButtons() {
@@ -566,21 +565,19 @@ public class App extends JFrame implements ActionListener {
 
         for (LeaderboardItem leaderboardItem : leaderboardItems) {
             removeButtons[i] = new JButton(removeButtonIcon);
-            removeButtons[i].setBounds( (int) (width*0.90), (int) (height*0.25)+ i * (int) (height*0.066), (int) ( width*0.02 ), (int) ( width*0.02 ) );
-            leaderboardContainer.add(removeButtons[i]);
-            ImageIcon newImg = new ImageIcon( image.getScaledInstance( (int) (removeButtons[i].getWidth()* 0.95 ) , (int) ( removeButtons[i].getHeight()*0.9),  java.awt.Image.SCALE_SMOOTH) );
+            removeButtons[i].setBounds((int) (width * 0.90), (int) (height * 0.25) + i * (int) (height * 0.066), (int) (width * 0.02), (int) (width * 0.02));
+            ImageIcon newImg = new ImageIcon(image.getScaledInstance((int) (removeButtons[i].getWidth() * 0.95), (int) (removeButtons[i].getHeight() * 0.9), java.awt.Image.SCALE_SMOOTH));
             removeButtons[i].setIcon(newImg);
             removeButtons[i].addActionListener(new ActionListenerWithInteger(i));
+            leaderboardContainer.add(removeButtons[i]);
             i++;
 
         }
     }
 
     public void deleteRemoveButtons() {
-        int i = removeButtons.length-1;
-        for (JButton jButton : removeButtons) {
+        for (int i = removeButtons.length - 1; i >= 0; i--) {
             leaderboardContainer.remove(removeButtons[i]);
-            i--;
         }
     }
 
@@ -594,13 +591,15 @@ public class App extends JFrame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String[] o = {"Kyllä", "Ei"};
-            int j = JOptionPane.showOptionDialog(cPane, "Haluatko varmasti poistaa tuloksen?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.WARNING_MESSAGE, null, o, null);
+            int j = JOptionPane.showOptionDialog(cPane, "Haluatko varmasti poistaa tuloksen?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, o, null);
 
             if (j == 0) {
                 leaderboardItems.remove(this.number);
                 LeaderboardLabelTexts();
-                leaderboardContainer.remove(removeButtons[this.number]);
-                
+                deleteRemoveButtons();
+                createRemoveButtons();
+                repaint();
+
             }
         }
     }
