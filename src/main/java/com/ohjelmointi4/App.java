@@ -157,6 +157,8 @@ public class App extends JFrame implements ActionListener {
         setIconImage(icon.getImage());
         setResizable(false);
 
+        //leaderboardItems.add(new LeaderboardItem("p", 10, 5, null));
+
         // peli
         gamePanel = new GamePanel();
         scoreText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -549,8 +551,10 @@ public class App extends JFrame implements ActionListener {
 
         sb = new StringBuilder("<html>");
 
-        for (LeaderboardItem leaderboardItem : leaderboardItems) {
-            sb.append(leaderboardItem.name);
+        int i;
+
+        for (i = 0; i < Math.min(5 ,leaderboardItems.size()); i++) {
+            sb.append(leaderboardItems.get(i).name);
             sb.append("<br/>");
             sb.append("<br/>");
         }
@@ -559,8 +563,8 @@ public class App extends JFrame implements ActionListener {
 
         sb = new StringBuilder("<html>");
 
-        for (LeaderboardItem leaderboardItem : leaderboardItems) {
-            sb.append(leaderboardItem.gameSeconds);
+        for (i = 0; i < Math.min(5 ,leaderboardItems.size()); i++) {
+            sb.append(leaderboardItems.get(i).gameSeconds);
             sb.append("<br/>");
             sb.append("<br/>");
         }
@@ -569,8 +573,8 @@ public class App extends JFrame implements ActionListener {
 
         sb = new StringBuilder("<html>");
 
-        for (LeaderboardItem leaderboardItem : leaderboardItems) {
-            sb.append(leaderboardItem.moves);
+        for (i = 0; i < Math.min(5 ,leaderboardItems.size()); i++) {
+            sb.append(leaderboardItems.get(i).moves);
             sb.append("<br/>");
             sb.append("<br/>");
         }
@@ -579,15 +583,14 @@ public class App extends JFrame implements ActionListener {
 
         sb = new StringBuilder("<html>");
 
-        for (LeaderboardItem leaderboardItem : leaderboardItems) {
-            String dateText = leaderboardItem.dateTime.format(formatter);
+        for (i = 0; i < Math.min(5 ,leaderboardItems.size()); i++) {
+            String dateText = leaderboardItems.get(i).dateTime.format(formatter);
             sb.append(dateText);
             sb.append("<br/>");
             sb.append("<br/>");
         }
         sb.append("</html>");
         leaderboardDate.setText(sb.toString());
-
 
     }
 
@@ -599,15 +602,13 @@ public class App extends JFrame implements ActionListener {
         int height = getHeight();
         removeButtons = new JButton[leaderboardItems.size()];
 
-        for (LeaderboardItem leaderboardItem : leaderboardItems) {
+        for (i = 0; i < Math.min(5 ,leaderboardItems.size()); i++) {
             removeButtons[i] = new JButton(removeButtonIcon);
             removeButtons[i].setBounds((int) (width * 0.90), (int) (height * 0.25) + i * (int) (leaderboardGamer.getFont().getSize() * 2.5f), (int) (width * 0.02), (int) (width * 0.02));
             ImageIcon newImg = new ImageIcon(image.getScaledInstance((int) (removeButtons[i].getWidth() * 0.95), (int) (removeButtons[i].getHeight() * 0.9), java.awt.Image.SCALE_SMOOTH));
             removeButtons[i].setIcon(newImg);
             removeButtons[i].addActionListener(new ActionListenerWithInteger(i));
             leaderboardContainer.add(removeButtons[i]);
-            i++;
-
         }
     }
 
