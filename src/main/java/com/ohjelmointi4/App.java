@@ -168,7 +168,10 @@ public class App extends JFrame implements ActionListener {
 
         // pisteet
         loadLeaderboard();
-
+        leaderboardGamer.setVerticalAlignment(SwingConstants.TOP);
+        leaderboardTime.setVerticalAlignment(SwingConstants.TOP);
+        leaderboardMoves.setVerticalAlignment(SwingConstants.TOP);
+        leaderboardDate.setVerticalAlignment(SwingConstants.TOP);
 
 
         // Adding listeners to the buttons
@@ -385,10 +388,10 @@ public class App extends JFrame implements ActionListener {
         leaderboardMovesLabel.setFont(font);
         leaderboardDateLabel.setFont(font);
 
-        leaderboardGamer.setBounds((int) (width * 0.1), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.5));
-        leaderboardTime.setBounds((int) (width * 0.3), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.5));
-        leaderboardMoves.setBounds((int) (width * 0.5), (int) (height * 0.1), (int) (width * 0.125), (int) (getHeight() * 0.5));
-        leaderboardDate.setBounds((int) (width * 0.65), (int) (height * 0.1), (int) (width * 0.2), (int) (getHeight() * 0.5));
+        leaderboardGamer.setBounds((int) (width * 0.1), (int) (height * 0.26), (int) (width * 0.125), (int) (getHeight() * 0.5));
+        leaderboardTime.setBounds((int) (width * 0.3), (int) (height * 0.26), (int) (width * 0.125), (int) (getHeight() * 0.5));
+        leaderboardMoves.setBounds((int) (width * 0.5), (int) (height * 0.26), (int) (width * 0.125), (int) (getHeight() * 0.5));
+        leaderboardDate.setBounds((int) (width * 0.65), (int) (height * 0.26), (int) (width * 0.2), (int) (getHeight() * 0.5));
 
         leaderboardGamer.setFont(font);
         leaderboardTime.setFont(font);
@@ -549,9 +552,6 @@ public class App extends JFrame implements ActionListener {
         sb.append("</html>");
         leaderboardDate.setText(sb.toString());
 
-        int width = cPane.getWidth();
-        int height = cPane.getHeight();
-
 
     }
 
@@ -565,7 +565,7 @@ public class App extends JFrame implements ActionListener {
 
         for (LeaderboardItem leaderboardItem : leaderboardItems) {
             removeButtons[i] = new JButton(removeButtonIcon);
-            removeButtons[i].setBounds((int) (width * 0.90), (int) (height * 0.25) + i * (int) (height * 0.066), (int) (width * 0.02), (int) (width * 0.02));
+            removeButtons[i].setBounds((int) (width * 0.90), (int) (height * 0.25) + i * (int) (leaderboardGamer.getFont().getSize() * 2.5f), (int) (width * 0.02), (int) (width * 0.02));
             ImageIcon newImg = new ImageIcon(image.getScaledInstance((int) (removeButtons[i].getWidth() * 0.95), (int) (removeButtons[i].getHeight() * 0.9), java.awt.Image.SCALE_SMOOTH));
             removeButtons[i].setIcon(newImg);
             removeButtons[i].addActionListener(new ActionListenerWithInteger(i));
@@ -598,6 +598,7 @@ public class App extends JFrame implements ActionListener {
                 LeaderboardLabelTexts();
                 deleteRemoveButtons();
                 createRemoveButtons();
+                saveLeaderboard();
                 repaint();
 
             }
