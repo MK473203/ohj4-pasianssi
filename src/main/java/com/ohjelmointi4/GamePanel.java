@@ -114,7 +114,7 @@ public class GamePanel extends JPanel implements ActionListener {
 						selectedDeck.selected = false;
 					}
 
-					if (!isWin()) {
+					if (isWin()) {
 						tickTimer.stop();
 						int gameDurationSeconds = (int)TimeUnit.SECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
 						String dialogString = "<html>Voitit pelin!<br>Aika:<br>Siirrot:</html>";
@@ -123,7 +123,6 @@ public class GamePanel extends JPanel implements ActionListener {
 						Object[] options = {"Tallenna", "Älä tallenna"};
 
 						JPanel panel = new JPanel();
-						// panel.setBackground(Color.GRAY);
 						panel.setLayout(new GridBagLayout());
 						GridBagConstraints c = new GridBagConstraints();
 						c.fill = GridBagConstraints.BOTH;
@@ -162,6 +161,9 @@ public class GamePanel extends JPanel implements ActionListener {
 							}
 
 						}
+						stop();
+						App.instance.crd.show(App.instance.cPane, "main menu");
+
 					}
 
 				}
