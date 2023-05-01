@@ -27,7 +27,7 @@ public class Sound {
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
                 FloatControl volume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                volume.setValue((volumeForFloatControl() ));
+                volume.setValue(( (float) (this.volume*0.2) ));    // arvon pitää olla välillä - 80 ja +6     
     
                 clip.start();
                 //clip.stop();

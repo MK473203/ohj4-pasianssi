@@ -5,7 +5,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
-import java.awt.Canvas;
+
 import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -14,9 +14,6 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
-import java.awt.font.FontRenderContext;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -125,7 +122,7 @@ public class App extends JFrame implements ActionListener {
 
     Sound buttonSound;
 
-    ImageIcon icon = new ImageIcon(getClass().getResource("/nimetön.png"));
+    
     ImageIcon backButtonIcon = new ImageIcon(getClass().getResource("/nuoli.png"));
     ImageIcon restartGameButtonIcon = new ImageIcon(getClass().getResource("/uusiPeli.png"));
     ImageIcon gameInstructionIcon = new ImageIcon(getClass().getResource("/ohjeet.png"));
@@ -155,10 +152,8 @@ public class App extends JFrame implements ActionListener {
 
         buttonSound = new Sound("/timpani.wav");
 
-        setIconImage(icon.getImage());
+   
         setResizable(false);
-
-        // leaderboardItems.add(new LeaderboardItem("p", 10, 5, null));
 
         // peli
         gamePanel = new GamePanel();
@@ -628,6 +623,7 @@ public class App extends JFrame implements ActionListener {
         }
     }
 
+    //Poista nappien kuuntelija
     public class ActionListenerWithInteger implements ActionListener {
         private int number;
 
