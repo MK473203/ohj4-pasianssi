@@ -167,7 +167,11 @@ public class App extends JFrame implements ActionListener {
         timeText.setVerticalAlignment(SwingConstants.CENTER);
 
         // pisteet
-        loadLeaderboard();
+        //loadLeaderboard();
+        leaderboardItems.add(new LeaderboardItem("Pelaaja1", 100, 30, LocalDateTime.now()));
+        leaderboardItems.add(new LeaderboardItem("Pelaaja2", 300, 20, LocalDateTime.now()));
+        leaderboardItems.add(new LeaderboardItem("Pelaaja3", 33, 33, LocalDateTime.now()));
+        saveLeaderboard();
         leaderboardGamer.setVerticalAlignment(SwingConstants.TOP);
         leaderboardTime.setVerticalAlignment(SwingConstants.TOP);
         leaderboardMoves.setVerticalAlignment(SwingConstants.TOP);
