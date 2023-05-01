@@ -1,16 +1,15 @@
 package com.ohjelmointi4;
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Point;
-import java.awt.TextArea;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -20,14 +19,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.net.URL;
 import java.time.LocalDateTime;
-import javax.swing.JButton;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -114,7 +109,7 @@ public class GamePanel extends JPanel implements ActionListener {
 						selectedDeck.selected = false;
 					}
 
-					if (!isWin()) {
+					if (isWin()) {
 						tickTimer.stop();
 						int gameDurationSeconds = (int)TimeUnit.SECONDS.convert(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
 						String dialogString = "<html>Voitit pelin!<br>Aika:<br>Siirrot:</html>";

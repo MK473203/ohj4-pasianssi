@@ -5,7 +5,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileFilter;
-import java.awt.Canvas;
+
 import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -14,8 +14,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
-import java.awt.image.BufferedImage;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -156,8 +155,6 @@ public class App extends JFrame implements ActionListener {
 
         setIconImage(icon.getImage());
         setResizable(false);
-
-        //leaderboardItems.add(new LeaderboardItem("p", 10, 5, null));
 
         // peli
         gamePanel = new GamePanel();
