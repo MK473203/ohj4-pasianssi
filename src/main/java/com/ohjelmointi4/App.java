@@ -123,7 +123,7 @@ public class App extends JFrame implements ActionListener {
 
     Sound buttonSound;
 
-    ImageIcon icon = new ImageIcon(getClass().getResource("/nimetön.png"));
+    
     ImageIcon backButtonIcon = new ImageIcon(getClass().getResource("/nuoli.png"));
     ImageIcon restartGameButtonIcon = new ImageIcon(getClass().getResource("/uusiPeli.png"));
     ImageIcon gameInstructionIcon = new ImageIcon(getClass().getResource("/ohjeet.png"));
@@ -153,7 +153,7 @@ public class App extends JFrame implements ActionListener {
 
         buttonSound = new Sound("/timpani.wav");
 
-        setIconImage(icon.getImage());
+   
         setResizable(false);
 
         // peli
