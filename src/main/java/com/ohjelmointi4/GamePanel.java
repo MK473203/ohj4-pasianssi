@@ -118,7 +118,6 @@ public class GamePanel extends JPanel implements ActionListener {
 						Object[] options = {"Tallenna", "Älä tallenna"};
 
 						JPanel panel = new JPanel();
-						// panel.setBackground(Color.GRAY);
 						panel.setLayout(new GridBagLayout());
 						GridBagConstraints c = new GridBagConstraints();
 						c.fill = GridBagConstraints.BOTH;
@@ -157,6 +156,9 @@ public class GamePanel extends JPanel implements ActionListener {
 							}
 
 						}
+						stop();
+						App.instance.crd.show(App.instance.cPane, "main menu");
+
 					}
 
 				}
