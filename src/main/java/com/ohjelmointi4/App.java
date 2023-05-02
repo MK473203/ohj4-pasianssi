@@ -337,7 +337,7 @@ public class App extends JFrame implements ActionListener {
         } else if (e.getSource() == gameBackButton) {
 
             String[] o = {"Ok", "Peruuta"};
-            int i = JOptionPane.showOptionDialog(this, "Tämä lopettaa pelin", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, o, null);
+            int i = JOptionPane.showOptionDialog(this, "Haluatko palata\ntakaisin päävalikkoon?\nEt voi jatkaa peliä.", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, o, null);
 
             if (i == 0) {
                 gamePanel.stop();
@@ -347,7 +347,7 @@ public class App extends JFrame implements ActionListener {
 
         } else if (e.getSource() == restartGameButton) {
             String[] o = {"Kyllä", "Ei"};
-            int i = JOptionPane.showOptionDialog(this, "Haluatko varmasti aloittaa uuden pelin?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, o, null);
+            int i = JOptionPane.showOptionDialog(this, "Haluatko varmasti\naloittaa uuden pelin?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, o, null);
 
             if (i == 0) {
                 gamePanel.start();
@@ -638,7 +638,7 @@ public class App extends JFrame implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             String[] o = {"Kyllä", "Ei"};
-            int j = JOptionPane.showOptionDialog(cPane, "Haluatko varmasti poistaa tuloksen?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, o, null);
+            int j = JOptionPane.showOptionDialog(cPane, "Haluatko varmasti\npoistaa tuloksen?", "Varoitus", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, o, null);
 
             if (j == 0) {
                 leaderboardItems.remove(this.number);
