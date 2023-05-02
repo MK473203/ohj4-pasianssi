@@ -451,20 +451,23 @@ public class App extends JFrame implements ActionListener {
 
         // menu
         newGameButton.setToolTipText("Aloittaa uuden pelin");
-        leaderboardButton.setToolTipText("Pelin läpäisseiden tilastot");
-        settingsButton.setToolTipText("Asetukset valikko");
-        quitButton.setToolTipText("Lopettaa ohjelman");
+        leaderboardButton.setToolTipText("Pelin läpäisseiden nimet ovat täällä");
+        settingsButton.setToolTipText("Voit säätää asetuksia tästä");
+        quitButton.setToolTipText("Sulkee ohjelman");
 
         // pisteet
-        leaderboardBackButton.setToolTipText("Takaisin päävalikkoon");
+        leaderboardBackButton.setToolTipText("Palaa päävalikkoon");
 
         // asetukset
-        settingsBackButton.setToolTipText("Takaisin päävalikkoon");
-        resolutionComboBox.setToolTipText("Valitse peli-ikkunan koko");
+        settingsBackButton.setToolTipText("Palaa päävalikkoon");
+        resolutionComboBox.setToolTipText("Voit valita peli-ikkunan koon tästä");
+        volumeSlider.setToolTipText("Liukusäätimestä voit säätää äänenvoimakkuutta");
+        chooseFileButton.setToolTipText("Voit valita tietokoneeltasi tiedoston, josta korttien kuvat haetaan");
         defaultCardsButton.setToolTipText("Tästä voit palauttaa pelin alkuperäiset kortit");
+        
 
         // peli
-        gameBackButton.setToolTipText("Takaisin päävalikkoon. Lopettaa pelin");
+        gameBackButton.setToolTipText("Palaa päävalikkoon. Lopettaa pelin");
         gameInstructionsButton.setToolTipText("Pelin ohjeet");
         gameRestartGameButton.setToolTipText("Aloittaa uuden pelin. Vanha peli menetetään");
 
@@ -572,6 +575,7 @@ public class App extends JFrame implements ActionListener {
             removeButtons[i].setBounds((int) (width * 0.90), (int) (height * 0.25) + i * (int) (leaderboardGamer.getFont().getSize() * 2.5f), (int) (width * 0.02), (int) (width * 0.02));
             ImageIcon newImg = new ImageIcon(image.getScaledInstance((int) (removeButtons[i].getWidth() * 0.95), (int) (removeButtons[i].getHeight() * 0.9), java.awt.Image.SCALE_SMOOTH));
             removeButtons[i].setIcon(newImg);
+            removeButtons[i].setToolTipText("Poista pelaajan tulos");
             removeButtons[i].addActionListener(new ActionListenerWithInteger(i));
             leaderboardContainer.add(removeButtons[i]);
         }
