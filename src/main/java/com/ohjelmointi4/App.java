@@ -150,7 +150,7 @@ public class App extends JFrame implements ActionListener {
 
         cPane.setLayout(crd);
 
-        buttonSound = new Sound("/timpani.wav");
+        buttonSound = new Sound("/click2.wav");
 
    
         setResizable(false);
