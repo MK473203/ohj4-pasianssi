@@ -30,7 +30,6 @@ public class Sound {
                 volume.setValue(( (float) (this.volume*0.2) ));    // arvon pitää olla välillä - 80 ja +6     
     
                 clip.start();
-                //clip.stop();
                 audioInputStream.close();
 
             } catch (Exception e) {

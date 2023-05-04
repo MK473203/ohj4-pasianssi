@@ -129,7 +129,7 @@ public class App extends JFrame implements ActionListener {
     JLabel restartGameLabel = new JLabel("Uusi peli");
     JLabel gameInstructionLabel = new JLabel("Ohjeet");
 
-    // constructor of the class
+
     App() {
 
         super("Pasianssi");
@@ -141,16 +141,12 @@ public class App extends JFrame implements ActionListener {
         cPane.setPreferredSize(new Dimension(800, 600));
         pack();
 
-        // default constructor used
-        // therefore, components will
-        // cover the whole area
         crd = new CardLayout();
 
         cPane.setLayout(crd);
 
         buttonSound = new Sound("/click2.wav");
 
-   
         setResizable(false);
 
         // peli
@@ -175,7 +171,7 @@ public class App extends JFrame implements ActionListener {
         settingsBackLabel.setVerticalAlignment(SwingConstants.CENTER);
         leaderboardsBackLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-        // Adding listeners to the buttons
+        // päävalikon painikkeiden kuuntelijat
         newGameButton.addActionListener(this);
         leaderboardButton.addActionListener(this);
         settingsButton.addActionListener(this);
@@ -227,6 +223,7 @@ public class App extends JFrame implements ActionListener {
         updateGameTexts();
         buttonMouseOvers();
 
+        // pelinäkymän painikkeiden kuuntelijat
         gameBackButton.addActionListener(this);
         restartGameButton.addActionListener(this);
         gameInstructionsButton.addActionListener(this);
